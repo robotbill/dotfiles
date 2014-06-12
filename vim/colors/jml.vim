@@ -63,3 +63,4 @@ hi String           ctermfg=25
 hi Number           ctermfg=130
 "hi LineNr           ctermfg=darkyellow  ctermbg=white cterm=bold
 hi LineNr           ctermfg=darkyellow  ctermbg=255 cterm=bold
+hi ColorColumn      ctermbg=255

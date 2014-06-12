@@ -22,6 +22,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'elzr/vim-json'
 Bundle 'Align'
+Bundle 'GEverding/vim-hocon'
 " End vundle
 
 filetype plugin indent on
@@ -66,9 +67,6 @@ set wildmode=list:longest
 "set working directory to current buffer
 "autocmd BufEnter * lcd %:p:h
 
-"write backup files to a different directory
-set backupdir=~/.vim/backup
-
 "mousing
 set mouse=nvi
 map <F1> <Esc>:set mouse=<CR>
@@ -83,6 +81,7 @@ if has("syntax") && &t_Co > 2 || has("gui_running")
   if has("syntax") && &t_Co == 256
     set background=light
     colorscheme jml
+    let &colorcolumn=join(range(120,120),",")
 "    colorscheme solarized
   else
 "    colorscheme cbc
@@ -97,6 +96,7 @@ if has("syntax") && &t_Co > 2 || has("gui_running")
     au! BufRead,BufNewFile Capfile setlocal filetype=ruby
     au! BufRead,BufNewFile *.md setlocal filetype=markdown
     au! BufRead,BufNewFile *.json setlocal foldmethod=syntax
+    au! BufRead,BufNewFile *.scala setlocal filetype=scala
   augroup END
 endif
 
@@ -105,6 +105,7 @@ au! BufRead,BufNewFile *.md setlocal spell
 
 "scala
 au! BufRead,BufNewFile *.scala setlocal shiftwidth=2
+au! BufRead,BufNewFile *.scala setlocal softtabstop=2
 
 nmap Y y$
 " Yank visually selected block then comment out
@@ -145,6 +146,11 @@ vnoremap K <Nop>
 
 " ctags go to definition with ,t
 map ,t :CtrlPTag<CR><C-\>w
+"
+"write backup files to a different directory
+set backupdir=~/.vim/backup
+set directory=~/.vim/backup
+
 
 :inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 
