@@ -23,6 +23,11 @@ Bundle 'derekwyatt/vim-scala'
 Bundle 'elzr/vim-json'
 Bundle 'Align'
 Bundle 'GEverding/vim-hocon'
+Bundle 'ConradIrwin/vim-bracketed-paste'
+
+"required for easytags
+Bundle 'xolox/vim-misc'
+Bundle 'xolox/vim-easytags'
 " End vundle
 
 filetype plugin indent on
@@ -146,7 +151,11 @@ vnoremap K <Nop>
 
 " ctags go to definition with ,t
 map ,t :CtrlPTag<CR><C-\>w
-"
+
+" easytags should use a project specific tags file
+:set tags=./tags;
+:let g:easytags_dynamic_files = 1
+
 "write backup files to a different directory
 set backupdir=~/.vim/backup
 set directory=~/.vim/backup
