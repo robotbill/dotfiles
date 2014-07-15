@@ -5,33 +5,37 @@ set encoding=utf-8
 
 " Vundle
 filetype off
-let $GIT_SSL_NO_VERIFY = 'true'
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+"let $GIT_SSL_NO_VERIFY = 'true'
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+"set rtp+=~/.vim/bundle/vundle/
+"call vundle#rc()
+Plugin 'gmarik/vundle'
 
-" My Bundles
-Bundle 'vimwiki'
-"Bundle 'matchit'
-Bundle 'kien/ctrlp.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bufexplorer.zip'
-Bundle 'mbbill/undotree'
-Bundle 'tpope/vim-fugitive'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'elzr/vim-json'
-Bundle 'Align'
-Bundle 'GEverding/vim-hocon'
-Bundle 'ConradIrwin/vim-bracketed-paste'
+" My Plugins
+Plugin 'vimwiki'
+"Plugin 'matchit'
+Plugin 'kien/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'bufexplorer.zip'
+Plugin 'mbbill/undotree'
+Plugin 'tpope/vim-fugitive'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'elzr/vim-json'
+Plugin 'Align'
+Plugin 'GEverding/vim-hocon'
+Plugin 'ConradIrwin/vim-bracketed-paste'
 
 "required for easytags
-Bundle 'xolox/vim-misc'
-Bundle 'xolox/vim-easytags'
-" End vundle
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
 
-filetype plugin indent on
+call vundle#end()            " required
+filetype plugin indent on    " required for Vundle
 
+set noerrorbells
 set visualbell
 set matchpairs+=<:>
 "set shortmess=a   " Use short messages
@@ -50,8 +54,10 @@ set virtualedit=block
 set wrap
 set whichwrap=b,s,h,l,<,>,[,]       " No left/right key should have to stop at line breaks
 
-set shiftwidth=4
 set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set smarttab
 set autoindent
 set indentexpr=           " There was some wacky indenting stuff goin' on
@@ -69,8 +75,8 @@ set laststatus=2
 set wildmenu
 set wildmode=list:longest
 
-"set working directory to current buffer
-"autocmd BufEnter * lcd %:p:h
+"Remove all autocommand
+"au!
 
 "mousing
 set mouse=nvi
@@ -102,15 +108,45 @@ if has("syntax") && &t_Co > 2 || has("gui_running")
     au! BufRead,BufNewFile *.md setlocal filetype=markdown
     au! BufRead,BufNewFile *.json setlocal foldmethod=syntax
     au! BufRead,BufNewFile *.scala setlocal filetype=scala
+    au! BufNewFile,BufRead *.mako set filetype=mako
   augroup END
 endif
 
-au! BufRead,BufNewFile *.wiki setlocal spell
-au! BufRead,BufNewFile *.md setlocal spell
+au BufRead,BufNewFile *.wiki setlocal spell
+au BufRead,BufNewFile *.md setlocal spell
+au BufNewFile,BufRead *txt,*.html,*.tex,README set spell
 
 "scala
-au! BufRead,BufNewFile *.scala setlocal shiftwidth=2
-au! BufRead,BufNewFile *.scala setlocal softtabstop=2
+au BufRead,BufNewFile *.scala setlocal shiftwidth=2
+au BufRead,BufNewFile *.scala setlocal softtabstop=2
+
+"haskell
+au BufNewFile,BufRead *.hs,*.lhs setlocal tabstop=4
+au BufNewFile,BufRead *.hs,*.lhs setlocal softtabstop=4
+au BufNewFile,BufRead *.hs,*.lhs setlocal shiftwidth=4
+
+"html and ruby
+au BufNewFile,BufRead *.html,*.html.erb setlocal tabstop=2
+au BufNewFile,BufRead *.html,*.html.erb setlocal softtabstop=2
+au BufNewFile,BufRead *.html,*.html.erb setlocal shiftwidth=2
+
+"mako templating
+au BufNewFile,BufRead *.mako setlocal tabstop=2
+au BufNewFile,BufRead *.mako setlocal softtabstop=2
+au BufNewFile,BufRead *.mako setlocal shiftwidth=2
+
+"TeX LaTeX
+au BufNewFile,BufRead *.tex set tw=80
+
+"Google Go
+au BufNewFile,BufRead *.go set syntax=go noexpandtab si
+
+"Objective C
+autocmd BufNewFile,BufRead *.m vmap ,: :<C-U>AlignCtrl rlp0P0\|<CR>:'<,'>Align :<CR>
+
+"Latex-Suite
+let g:Tex_ViewRule_pdf = 'Preview'
+let g:tex_flavor='latex'
 
 nmap Y y$
 " Yank visually selected block then comment out
@@ -153,8 +189,9 @@ vnoremap K <Nop>
 map ,t :CtrlPTag<CR><C-\>w
 
 " easytags should use a project specific tags file
-:set tags=./tags;
-:let g:easytags_dynamic_files = 1
+set tags=./tags;
+let g:easytags_dynamic_files = 1
+let g:easytags_async = 1
 
 "write backup files to a different directory
 set backupdir=~/.vim/backup
