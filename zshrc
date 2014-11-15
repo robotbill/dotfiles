@@ -76,14 +76,13 @@ bindkey -M vicmd v edit-command-line
 bindkey '^?' backward-delete-char
 
 # Aliases
-alias forwardc3='ssh c3prod -NL 8080:localhost:8080'
-alias forwardc3dev='ssh c3dev -NL 8080:localhost:8080'
 
 alias ll='ls -al'
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 alias view='vim -R'
 alias vi='vim'
 alias gv='mvim'
+alias sl='sl'
 
 alias pgdev='PGUSER=myapp PGPASSWORD=dbpass psql -h localhost -p 15432 myapp'
 
