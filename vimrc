@@ -215,6 +215,12 @@ let g:easytags_async = 1
 set backupdir=~/.vim/backup
 set directory=~/.vim/backup
 
+" window movement
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
 let g:vim_json_syntax_conceal = 0
 
 :inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
