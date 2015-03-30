@@ -17,6 +17,7 @@ Plugin 'gmarik/vundle'
 Plugin 'vimwiki'
 "Plugin 'matchit'
 Plugin 'kien/ctrlp.vim'
+Plugin 'ivalkeen/vim-ctrlp-tjump'
 Plugin 'mileszs/ack.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bufexplorer.zip'
@@ -27,6 +28,9 @@ Plugin 'elzr/vim-json'
 Plugin 'Align'
 Plugin 'GEverding/vim-hocon'
 Plugin 'ConradIrwin/vim-bracketed-paste'
+Plugin 'sukima/xmledit'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'shime/vim-livedown'
 
 "required for easytags
 Plugin 'xolox/vim-misc'
@@ -75,6 +79,8 @@ set laststatus=2
 set wildmenu
 set wildmode=list:longest
 
+"let mapleader=' '
+
 "Remove all autocommand
 "au!
 
@@ -92,10 +98,7 @@ if has("syntax") && &t_Co > 2 || has("gui_running")
   if has("syntax") && &t_Co == 256
     set background=light
     colorscheme jml
-    let &colorcolumn=join(range(120,120),",")
-"    colorscheme solarized
-  else
-"    colorscheme cbc
+    let &colorcolumn=join(range(100,100),",")
   endif
 
   augroup filetype
@@ -119,6 +122,9 @@ au BufNewFile,BufRead *txt,*.html,*.tex,README set spell
 "scala
 au BufRead,BufNewFile *.scala setlocal shiftwidth=2
 au BufRead,BufNewFile *.scala setlocal softtabstop=2
+" automatically reload scala files for scalariform
+"au FocusGained,BufEnter *.scala :silent! !
+"au BufRead,BufNewFile *.scala setlocal autoread
 
 "haskell
 au BufNewFile,BufRead *.hs,*.lhs setlocal tabstop=4
@@ -143,6 +149,10 @@ au BufNewFile,BufRead *.go set syntax=go noexpandtab si
 
 "Objective C
 autocmd BufNewFile,BufRead *.m vmap ,: :<C-U>AlignCtrl rlp0P0\|<CR>:'<,'>Align :<CR>
+
+"XML
+let g:xml_syntax_folding=1
+au FileType xml setlocal foldmethod=syntax
 
 "Latex-Suite
 let g:Tex_ViewRule_pdf = 'Preview'
@@ -186,10 +196,18 @@ nnoremap K :Wack<CR>
 vnoremap K <Nop>
 
 " ctags go to definition with ,t
-map ,t :CtrlPTag<CR><C-\>w
+"map ,t :CtrlPTag<CR><C-\>w
+nnoremap <c-]> :CtrlPtjump<cr>
+vnoremap <c-]> :CtrlPtjumpVisual<cr>
+let g:ctrlp_tjump_shortener = ['/home/.*/gems/', '.../']
+"If there is only one tag found, it is possible to open it without opening CtrlP window:
+let g:ctrlp_tjump_only_silent = 1
 
 " easytags should use a project specific tags file
-set tags=./tags;
+"set tags=./tags;
+set tags=./.tags,.tags,./tags,tags,./.easytags
+" not sure if this next line is doing anything...
+let g:easytags_file = './.easytags'
 let g:easytags_dynamic_files = 1
 let g:easytags_async = 1
 
@@ -197,6 +215,7 @@ let g:easytags_async = 1
 set backupdir=~/.vim/backup
 set directory=~/.vim/backup
 
+let g:vim_json_syntax_conceal = 0
 
 :inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 
