@@ -31,6 +31,7 @@ Plugin 'ConradIrwin/vim-bracketed-paste'
 Plugin 'sukima/xmledit'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'shime/vim-livedown'
+Plugin 'dag/vim-fish'
 
 "required for easytags
 Plugin 'xolox/vim-misc'
