@@ -2,9 +2,8 @@ fish_vi_mode
 
 set -x EDITOR nvim
 
-function vim
-    nvim $argv
-end
+alias vim 'nvim $argv'
+alias gv 'mvim'
 
 function edit_cmd --description 'Input command in external editor'
     set -l f (mktemp /tmp/fish.cmd.XXXXXXXX)
