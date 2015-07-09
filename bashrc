@@ -68,3 +68,5 @@ alias xcode-select-4='sudo xcode-select -switch /Applications/Xcode.app/Contents
 #  /usr/local/etc/bash_completion.d
 
 umask 002
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

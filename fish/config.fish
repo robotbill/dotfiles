@@ -1,9 +1,18 @@
 fish_vi_mode
 
 set -x EDITOR nvim
+set -x JANRAIN_USER jlewis
 
-alias vim 'nvim $argv'
-alias gv 'mvim'
+function gv
+    mvim $argv
+end
+
+function vim
+    nvim $argv
+end
+
+set -gx PATH $PATH $HOME/bin
+set -gx PATH $PATH $HOME/Development/adt-bundle-mac-x86_64-20130522/sdk/tools
 
 function edit_cmd --description 'Input command in external editor'
     set -l f (mktemp /tmp/fish.cmd.XXXXXXXX)
@@ -22,8 +31,8 @@ end
 function my_key_bindings
     fish_vi_key_bindings
 
-    bind \cl clear force-repaint
-    bind -M insert \cl clear force-repaint
+    bind \cl 'clear; commandline -f repaint'
+    bind -M insert \cl 'clear; commandline -f repaint'
     bind \cv 'edit_cmd'
     bind -M insert \cv 'edit_cmd'
 end
@@ -32,7 +41,7 @@ set -g fish_key_bindings my_key_bindings
 function vi_mode_color --description 'Sets color based on the current mode'
   switch $fish_bind_mode
     case insert
-      set_color green
+      set_color 0C0
     case '*'
       set_color normal
   end

@@ -3,6 +3,8 @@ syntax enable
 set nocompatible
 set encoding=utf-8
 
+set shell=/bin/sh
+
 " Vundle
 filetype off
 "let $GIT_SSL_NO_VERIFY = 'true'
@@ -20,6 +22,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'ivalkeen/vim-ctrlp-tjump'
 Plugin 'mileszs/ack.vim'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'jonathanfilip/vim-lucius'
 Plugin 'bufexplorer.zip'
 Plugin 'mbbill/undotree'
 Plugin 'tpope/vim-fugitive'
@@ -32,6 +35,8 @@ Plugin 'sukima/xmledit'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'shime/vim-livedown'
 Plugin 'dag/vim-fish'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Valloric/YouCompleteMe'
 
 "required for easytags
 Plugin 'xolox/vim-misc'
