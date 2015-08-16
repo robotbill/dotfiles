@@ -193,6 +193,9 @@ let g:ctrlp_extension = ['tag', 'mixed']
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_mruf_relative = 1
 
+" Seriously, guys. It's not like :W is bound to anything anyway.
+command! W :w
+
 " Integrate ack into vim via :Ack command
 " Thanks saikobee
 command! Wack exec 'Ack "' . expand('<cword>') . '"'
