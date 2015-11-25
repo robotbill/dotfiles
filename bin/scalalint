@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+
+import os
+import subprocess
+import sys
+
+def main(args):
+    #TODO use argparse or something
+    path = os.path.expanduser(args[-1])
+    with open(find_classpath_file(path), 'r') as file:
+        classpaths = file.read().strip()
+
+    command = ['fsc'] + args[1:-1] + ['-classpath {}'.format(classpaths), path.strip()]
+    subprocess.call(" ".join(command), stdout=sys.stderr, stderr=sys.stderr, shell=True)
+
+def find_classpath_file(path):
+    dir = os.path.dirname(path)
+    home = os.path.expanduser('~')
+    os.chdir(dir)
+    cwd = os.getcwd()
+    while cwd != home:
+        if '.classpath' in os.listdir(cwd):
+            return os.path.join(cwd, '.classpath')
+        else:
+            os.chdir('..')
+            cwd = os.getcwd()
+    raise Exception('Could not find classpath file')
+
+if __name__ == '__main__':
+    main(sys.argv)

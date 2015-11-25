@@ -3,47 +3,36 @@ syntax enable
 set nocompatible
 set encoding=utf-8
 
-set shell=/bin/sh
+set shell=/bin/bash
 
-" Vundle
-filetype off
-"let $GIT_SSL_NO_VERIFY = 'true'
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-"set rtp+=~/.vim/bundle/vundle/
-"call vundle#rc()
-Plugin 'gmarik/vundle'
+call plug#begin('~/.vim/plugged')
 
-" My Plugins
-Plugin 'vimwiki'
-"Plugin 'matchit'
-Plugin 'kien/ctrlp.vim'
-Plugin 'ivalkeen/vim-ctrlp-tjump'
-Plugin 'mileszs/ack.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'jonathanfilip/vim-lucius'
-Plugin 'bufexplorer.zip'
-Plugin 'mbbill/undotree'
-Plugin 'tpope/vim-fugitive'
-Plugin 'derekwyatt/vim-scala'
-Plugin 'elzr/vim-json'
-Plugin 'Align'
-Plugin 'GEverding/vim-hocon'
-Plugin 'ConradIrwin/vim-bracketed-paste'
-Plugin 'sukima/xmledit'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'shime/vim-livedown'
-Plugin 'dag/vim-fish'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Valloric/YouCompleteMe'
+Plug 'vimwiki'
+Plug 'kien/ctrlp.vim'
+Plug 'ivalkeen/vim-ctrlp-tjump'
+Plug 'mileszs/ack.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'bufexplorer.zip'
+Plug 'mbbill/undotree'
+Plug 'tpope/vim-fugitive'
+Plug 'derekwyatt/vim-scala'
+Plug 'elzr/vim-json'
+Plug 'Align'
+Plug 'GEverding/vim-hocon'
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'sukima/xmledit'
+Plug 'scrooloose/nerdcommenter'
+Plug 'shime/vim-livedown'
+Plug 'dag/vim-fish'
+Plug 'scrooloose/nerdtree'
+Plug 'benekastah/neomake'
+Plug 'bling/vim-airline'
 
-"required for easytags
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
 
-call vundle#end()            " required
-filetype plugin indent on    " required for Vundle
+call plug#end()
 
 set noerrorbells
 set visualbell
@@ -128,6 +117,7 @@ au BufNewFile,BufRead *txt,*.html,*.tex,README set spell
 "scala
 au BufRead,BufNewFile *.scala setlocal shiftwidth=2
 au BufRead,BufNewFile *.scala setlocal softtabstop=2
+au! BufWritePost *.scala Neomake
 " automatically reload scala files for scalariform
 "au FocusGained,BufEnter *.scala :silent! !
 "au BufRead,BufNewFile *.scala setlocal autoread
@@ -211,11 +201,14 @@ let g:ctrlp_tjump_only_silent = 1
 
 " easytags should use a project specific tags file
 "set tags=./tags;
-set tags=./.tags,.tags,./tags,tags,./.easytags
+set tags=tags
 " not sure if this next line is doing anything...
-let g:easytags_file = './.easytags'
+let g:easytags_cmd = '/usr/local/bin/ctags'
 let g:easytags_dynamic_files = 1
-let g:easytags_async = 1
+"async doesn't seem to be working in neovim :(
+"let g:easytags_async = 1
+let g:easytags_always_enabled = 1
+let g:easytags_events = ['BufWritePost']
 
 "write backup files to a different directory
 set backupdir=~/.vim/backup
@@ -226,6 +219,9 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
+
+"airline
+let g:airline_powerline_fonts = 1
 
 let g:vim_json_syntax_conceal = 0
 
