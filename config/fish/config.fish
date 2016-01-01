@@ -14,6 +14,6 @@ set -gx PATH $PATH $HOME/bin
 
 set -g fish_key_bindings my_key_bindings
 
-if contains 'machine_specific' (functions)
+if functions --query 'machine_specific'
     machine_specific
 end
