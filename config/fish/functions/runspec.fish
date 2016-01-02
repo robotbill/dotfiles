@@ -1,13 +1,12 @@
 function runspec --description "Run Maven tests on scala file changes"
-    set entr_mvn "entr -c mvn -s mvn-settings.xml -pl"
-    set test_args "test -DfailIfNoTests=false"
+    if test (count $argv) = 0
+        echo "Usage: runspec project-path [TestClass]"
+    else
+        if test (count $argv) = 2
+            set test_class -Dtest=$argv[2]
+        end
 
-    switch (count $argv)
-        case 0
-            echo "Usage: runspec project-path [TestClass]"
-        case 1
-            eval find $argv[1] "-name '*.scala' | " $entr_mvn $argv[1] $test_args
-        case 2
-            eval find $argv[1] "-name '*.scala' | " $entr_mvn $argv[1] $test_args -Dtest=$argv[2]
+        find $argv[1] -name '*.scala' |  \
+            entr -c mvn -s mvn-settings.xml -pl $argv[1] test -DfailIfNoTests=false $test_class
     end
 end
