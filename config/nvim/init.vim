@@ -11,19 +11,21 @@ Plug 'mileszs/ack.vim'
 Plug 'bufexplorer.zip'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-fugitive'
-Plug 'derekwyatt/vim-scala'
-Plug 'elzr/vim-json'
+Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
+Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'GEverding/vim-hocon'
-Plug 'sukima/xmledit'
+Plug 'sukima/xmledit', { 'for': 'xml' }
 Plug 'scrooloose/nerdcommenter'
-Plug 'shime/vim-livedown'
+Plug 'shime/vim-livedown', { 'for': 'markdown' }
 Plug 'dag/vim-fish'
 Plug 'scrooloose/nerdtree'
 Plug 'benekastah/neomake'
 Plug 'bling/vim-airline'
+Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure', 'scala'] }
 
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
+Plug 'fntlnz/atags.vim'
 
 call plug#end()
 
@@ -98,21 +100,30 @@ if has("syntax") && &t_Co > 2 || has("gui_running")
     au! BufRead,BufNewFile *.md setlocal filetype=markdown
     au! BufRead,BufNewFile *.json setlocal foldmethod=syntax
     au! BufRead,BufNewFile *.scala setlocal filetype=scala
+    au! BufRead,BufNewFile *.java setlocal filetype=java
     au! BufNewFile,BufRead *.mako set filetype=mako
   augroup END
 endif
 
 au BufRead,BufNewFile *.wiki setlocal spell
 au BufRead,BufNewFile *.md setlocal spell
-au BufNewFile,BufRead *txt,*.html,*.tex,README set spell
+au BufNewFile,BufRead *txt,*.html,*.tex,README setlocal spell
 
 "scala
 au BufRead,BufNewFile *.scala setlocal shiftwidth=2
 au BufRead,BufNewFile *.scala setlocal softtabstop=2
 au! BufWritePost *.scala Neomake
+au! BufWritePost *.scala call atags#generate()
 " automatically reload scala files for scalariform
 "au FocusGained,BufEnter *.scala :silent! !
 "au BufRead,BufNewFile *.scala setlocal autoread
+
+"java
+au! BufWritePost *.java Neomake
+au! BufWritePost *.java call atags#generate()
+au BufNewFile,BufRead *.mako setlocal tabstop=2
+au BufNewFile,BufRead *.mako setlocal softtabstop=2
+au BufNewFile,BufRead *.mako setlocal shiftwidth=2
 
 "haskell
 au BufNewFile,BufRead *.hs,*.lhs setlocal tabstop=4
@@ -151,9 +162,11 @@ nmap Y y$
 vmap ,yc ygv:normal i#<CR>
 map ; q:
 
-" Awesome copy and pasting via Bracket
-vmap ,x :w !pbcopy<CR><CR>
-nmap ,p :r !pbpaste<CR><CR>
+"" Awesome copy and pasting via Bracket
+"vmap ,x :w !pbcopy<CR><CR>
+"nmap ,p :r !pbpaste<CR><CR>
+" copy into system buffer
+vmap ,x "*y
 
 " make * work in visual mode
 vmap * y:let@/=@"<CR>n
@@ -189,16 +202,6 @@ vnoremap <c-]> :CtrlPtjumpVisual<cr>
 let g:ctrlp_tjump_shortener = ['/home/.*/gems/', '.../']
 "If there is only one tag found, it is possible to open it without opening CtrlP window:
 let g:ctrlp_tjump_only_silent = 1
-
-" easytags should use a project specific tags file
-"set tags=./tags;
-set tags=tags
-" not sure if this next line is doing anything...
-let g:easytags_cmd = '/usr/local/bin/ctags'
-let g:easytags_dynamic_files = 1
-let g:easytags_async = 1
-let g:easytags_always_enabled = 1
-let g:easytags_events = ['BufWritePost']
 
 "write backup files to a different directory
 set backupdir=~/.vim/backup
@@ -281,3 +284,32 @@ let g:neomake_scala_fsclint_maker = {
     \ }
 "            \ '-Ywarn-value-discard',
 let g:neomake_scala_enabled_makers = ['fsclint']
+
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+
+au VimEnter,BufRead,BufNewFile *.scala RainbowParenthesesToggle
+au Syntax *.scala RainbowParenthesesLoadRound
+au VimEnter,BufRead,BufNewFile *.clojure RainbowParenthesesToggle
+au Syntax *.clojure RainbowParenthesesLoadRound
+au Syntax *.clojure RainbowParenthesesLoadSquare
+au Syntax *.clojure RainbowParenthesesLoadBraces
