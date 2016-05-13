@@ -24,6 +24,7 @@ Plug 'bling/vim-airline'
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure', 'scala'] }
+Plug 'rhysd/committia.vim'
 
 Plug 'fntlnz/atags.vim'
 

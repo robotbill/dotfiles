@@ -10,6 +10,10 @@ function vim
     nvim $argv
 end
 
+function grep
+    ggrep $argv
+end
+
 set -gx PATH $PATH $HOME/bin
 
 set -g fish_key_bindings my_key_bindings
