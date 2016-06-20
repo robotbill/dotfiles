@@ -1,4 +1,4 @@
-fish_vi_mode
+fish_vi_key_bindings
 
 set -x EDITOR nvim
 
@@ -14,9 +14,7 @@ function grep
     ggrep $argv
 end
 
-set -gx PATH $PATH $HOME/bin
-
-set -g fish_key_bindings my_key_bindings
+set -gx PATH $PATH $HOME/bin $HOME/.jenv/bin
 
 if functions --query 'machine_specific'
     machine_specific
