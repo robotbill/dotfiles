@@ -5,6 +5,7 @@ set shell=/bin/bash
 call plug#begin('~/.vim/plugged')
 
 Plug 'vimwiki'
+Plug 'DrawIt'
 Plug 'kien/ctrlp.vim'
 Plug 'ivalkeen/vim-ctrlp-tjump'
 Plug 'mileszs/ack.vim'
@@ -12,14 +13,15 @@ Plug 'bufexplorer.zip'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-fugitive'
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
+"Plug 'ensime/ensime-vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'GEverding/vim-hocon'
 Plug 'sukima/xmledit', { 'for': 'xml' }
 Plug 'scrooloose/nerdcommenter'
-Plug 'shime/vim-livedown', { 'for': 'markdown' }
+Plug 'shime/vim-livedown', { 'for': 'markdown', 'commit': '9afa3914536b83067d55813eb894fc7388cafb33' }
 Plug 'dag/vim-fish'
-Plug 'scrooloose/nerdtree'
 Plug 'benekastah/neomake'
+Plug 'scrooloose/nerdtree'
 Plug 'bling/vim-airline'
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
@@ -69,7 +71,11 @@ set laststatus=2
 set wildmenu
 set wildmode=list:longest
 
+let g:python_host_prog  = "/usr/local/bin/python"
+let g:python3_host_prog = "/usr/local/bin/python3"
+
 "let mapleader=' '
+let mapleader = ","
 
 "Remove all autocommand
 "au!
@@ -78,6 +84,9 @@ set wildmode=list:longest
 set mouse=nvi
 map <F1> <Esc>:set mouse=<CR>
 map <F2> <Esc>:set mouse=nvi<CR>
+
+"disable incremental search and replace
+set inccommand=""
 
 if has('unix')
     set bk bdir=.,~/.vimbak,/tmp,/var/tmp       " Backup settings
@@ -113,14 +122,18 @@ au BufNewFile,BufRead *txt,*.html,*.tex,README setlocal spell
 "scala
 au BufRead,BufNewFile *.scala setlocal shiftwidth=2
 au BufRead,BufNewFile *.scala setlocal softtabstop=2
-au! BufWritePost *.scala Neomake
-au! BufWritePost *.scala call atags#generate()
+"au! BufWritePost *.scala Neomake
+au BufWritePost *.scala call atags#generate()
+"au BufWritePost *.scala :EnTypeCheck
 " automatically reload scala files for scalariform
 "au FocusGained,BufEnter *.scala :silent! !
 "au BufRead,BufNewFile *.scala setlocal autoread
 
+"python
+au! BufWritePost *.py Neomake
+
 "java
-au! BufWritePost *.java Neomake
+"au! BufWritePost *.java Neomake
 au! BufWritePost *.java call atags#generate()
 au BufNewFile,BufRead *.mako setlocal tabstop=2
 au BufNewFile,BufRead *.mako setlocal softtabstop=2
@@ -150,6 +163,9 @@ au BufNewFile,BufRead *.go set syntax=go noexpandtab si
 "Objective C
 autocmd BufNewFile,BufRead *.m vmap ,: :<C-U>AlignCtrl rlp0P0\|<CR>:'<,'>Align :<CR>
 
+"Markdown
+autocmd BufNewFile,BufRead *.md,*.markdown setlocal textwidth=80
+
 "XML
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
@@ -167,7 +183,7 @@ map ; q:
 "vmap ,x :w !pbcopy<CR><CR>
 "nmap ,p :r !pbpaste<CR><CR>
 " copy into system buffer
-vmap ,x "*y
+vmap <leader>x "*y
 
 " make * work in visual mode
 vmap * y:let@/=@"<CR>n
@@ -197,7 +213,7 @@ command! Wack exec 'Ack -w "' . expand('<cword>') . '"'
 nnoremap K :Wack<CR>
 vnoremap K <Nop>
 
-map ,t :CtrlPTag<CR>
+map <leader>t :CtrlPTag<CR>
 nnoremap <c-]> :CtrlPtjump<cr>
 vnoremap <c-]> :CtrlPtjumpVisual<cr>
 let g:ctrlp_tjump_shortener = ['/home/.*/gems/', '.../']
@@ -219,6 +235,8 @@ tnoremap <A-j> <C-\><C-n><C-w>j
 tnoremap <A-k> <C-\><C-n><C-w>k
 tnoremap <A-l> <C-\><C-n><C-w>l
 
+"escape out of terminal mode
+:tnoremap <A-[> <C-\><C-n>
 
 "airline
 let g:airline_powerline_fonts = 1
@@ -245,46 +263,60 @@ let g:fugitive_github_domains = ['https://github.banksimple.com']
 " New terminal with Fish shell
 command Fish terminal exec fish
 
+"syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"ensime
+"nmap <leader>d :EnDeclaration<CR>
+"nmap <leader>t :EnInspectType<CR>
+
 "Move to nvimrc
 "neomake
-let g:neomake_open_list = 0
-let g:neomake_list_height = 10
-let g:neomake_verbose = 0
-let g:neomake_logfile = 'neomake.log'
+"let g:neomake_open_list = 0
+"let g:neomake_list_height = 10
+"let g:neomake_verbose = 0
+"let g:neomake_logfile = 'neomake.log'
 
 " 'errorformat': '%E%f:%l: %t%m,%Z%p^,%-G%.%#',
 
-let g:neomake_scala_fsclint_maker = {
-        \ 'exe': 'scalalint',
-        \ 'errorformat':
-            \ '%E%f:%l: %trror:%m,' .
-            \ '%W%f:%l: %tarning:%m,' .
-            \ '%Z%p^,' .
-            \ '%-G%.%#,',
-        \ 'args': [
-            \ '-Xfatal-warnings:false',
-            \ '-Xfuture',
-            \ '-Xlint',
-            \ '-Ywarn-adapted-args',
-            \ '-Ywarn-dead-code',
-            \ '-Ywarn-inaccessible',
-            \ '-Ywarn-infer-any',
-            \ '-Ywarn-nullary-override',
-            \ '-Ywarn-nullary-unit',
-            \ '-Ywarn-numeric-widen',
-            \ '-Ywarn-unused-import',
-            \ '-deprecation',
-            \ '-encoding UTF-8',
-            \ '-feature',
-            \ '-language:existentials',
-            \ '-language:higherKinds',
-            \ '-language:implicitConversions',
-            \ '-unchecked',
-            \ '-d /private/var/tmp/',
-        \ ]
-    \ }
-"            \ '-Ywarn-value-discard',
-let g:neomake_scala_enabled_makers = ['fsclint']
+"let g:neomake_scala_fsclint_maker = {
+"        \ 'exe': 'scalalint',
+"        \ 'errorformat':
+"            \ '%E%f:%l: %trror:%m,' .
+"            \ '%W%f:%l: %tarning:%m,' .
+"            \ '%Z%p^,' .
+"            \ '%-G%.%#,',
+"        \ 'args': [
+"            \ '-Xfatal-warnings:false',
+"            \ '-Xfuture',
+"            \ '-Xlint',
+"            \ '-Ywarn-adapted-args',
+"            \ '-Ywarn-dead-code',
+"            \ '-Ywarn-inaccessible',
+"            \ '-Ywarn-infer-any',
+"            \ '-Ywarn-nullary-override',
+"            \ '-Ywarn-nullary-unit',
+"            \ '-Ywarn-numeric-widen',
+"            \ '-Ywarn-unused-import',
+"            \ '-deprecation',
+"            \ '-encoding UTF-8',
+"            \ '-feature',
+"            \ '-language:existentials',
+"            \ '-language:higherKinds',
+"            \ '-language:implicitConversions',
+"            \ '-unchecked',
+"            \ '-d /private/var/tmp/',
+"        \ ]
+"    \ }
+""            \ '-Ywarn-value-discard',
+"let g:neomake_scala_enabled_makers = ['fsclint']
 
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
