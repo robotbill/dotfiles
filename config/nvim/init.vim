@@ -5,11 +5,10 @@ set shell=/bin/bash
 call plug#begin('~/.vim/plugged')
 
 Plug 'Chiel92/vim-autoformat'
-Plug 'DrawIt'
 Plug 'GEverding/vim-hocon'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'benekastah/neomake'
 Plug 'bling/vim-airline'
-Plug 'bufexplorer.zip'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dag/vim-fish'
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
@@ -17,19 +16,19 @@ Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'fntlnz/atags.vim'
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'ivalkeen/vim-ctrlp-tjump'
+Plug 'jlanzarotta/bufexplorer'
 Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure', 'scala'] }
 Plug 'mbbill/undotree'
 Plug 'mileszs/ack.vim'
 Plug 'rhysd/committia.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'shime/vim-livedown', { 'for': 'markdown', 'commit': '9afa3914536b83067d55813eb894fc7388cafb33' }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'shime/vim-livedown', { 'for': 'markdown' }
 Plug 'sukima/xmledit', { 'for': 'xml' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'vimwiki'
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -262,7 +261,7 @@ let g:vim_json_syntax_conceal = 0
 let g:github_enterprise_urls = ['https://github.banksimple.com']
 
 " New terminal with Fish shell
-command Fish terminal exec fish
+command! Fish terminal exec fish
 
 " autoformat
 let g:formatters_scala = ['scalafmt']
