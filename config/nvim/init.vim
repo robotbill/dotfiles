@@ -19,7 +19,7 @@ Plug 'ivalkeen/vim-ctrlp-tjump'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure', 'scala'] }
 Plug 'mbbill/undotree'
-Plug 'mileszs/ack.vim'
+Plug 'mhinz/vim-grepper'
 Plug 'rhysd/committia.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
@@ -215,30 +215,10 @@ vmap <leader>x "*y
 " make * work in visual mode
 vmap * y:let@/=@"<CR>n
 
-if executable('ag')
-" Use ag for Ctrlp for listing files, will respect .gitignore
-" Requires ag 'brew install the_silver_searcher'
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  "apparently ag is fast enough that we don't need caching
-  let g:ctrlp_use_caching = 0
-
-  let g:ackprg='ag --nogroup --nocolor --column'
-else
-    let g:ackprg="/usr/local/bin/ack"
-endif
-
 " Ctrl-P show files and buffers
 let g:ctrlp_extension = ['tag', 'mixed']
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_mruf_relative = 1
-
-" Integrate ack into vim via :Ack command
-" Thanks wavebeem
-command! Wack exec 'Ack -w "' . expand('<cword>') . '"'
-
-" K will ack for the text under the cursor
-nnoremap K :Wack<CR>
-vnoremap K <Nop>
 
 " Completion
 let g:deoplete#enable_at_startup = 1
@@ -266,3 +246,9 @@ command! Fish terminal exec fish
 " autoformat
 let g:formatters_scala = ['scalafmt']
 let g:formatdef_scalafmt = '"scalafmt --config .scalafmt.conf --stdin 2>/dev/null"'
+
+" grepper
+nmap gs <plug>(GrepperOperator)
+nmap gs <plug>(GrepperOperator)
+" K searches for word under the current character
+nmap K gsiw
