@@ -4,31 +4,32 @@ set shell=/bin/bash
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'vimwiki'
+Plug 'Chiel92/vim-autoformat'
 Plug 'DrawIt'
-Plug 'kien/ctrlp.vim'
-Plug 'ivalkeen/vim-ctrlp-tjump'
-Plug 'mileszs/ack.vim'
-Plug 'bufexplorer.zip'
-Plug 'mbbill/undotree'
-Plug 'tpope/vim-fugitive'
-Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
-"Plug 'ensime/ensime-vim'
-Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'GEverding/vim-hocon'
-Plug 'sukima/xmledit', { 'for': 'xml' }
-Plug 'scrooloose/nerdcommenter'
-Plug 'shime/vim-livedown', { 'for': 'markdown', 'commit': '9afa3914536b83067d55813eb894fc7388cafb33' }
-Plug 'dag/vim-fish'
 Plug 'benekastah/neomake'
-Plug 'scrooloose/nerdtree'
 Plug 'bling/vim-airline'
-Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure', 'scala'] }
-Plug 'rhysd/committia.vim'
-
+Plug 'bufexplorer.zip'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dag/vim-fish'
+Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
+Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'fntlnz/atags.vim'
+Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
+Plug 'ivalkeen/vim-ctrlp-tjump'
+Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure', 'scala'] }
+Plug 'mbbill/undotree'
+Plug 'mileszs/ack.vim'
+Plug 'rhysd/committia.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'shime/vim-livedown', { 'for': 'markdown', 'commit': '9afa3914536b83067d55813eb894fc7388cafb33' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'sukima/xmledit', { 'for': 'xml' }
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'vimwiki'
 
 call plug#end()
 
@@ -39,7 +40,7 @@ set showmatch    " Show matching brackets when typing
 set smartcase
 set textwidth=0  " Don't automatically wrap lines
 set backspace=2  " Allow backspacing over everything in insert mode
-set history=50
+set history=500
 set cmdheight=2
 set scrolloff=1
 set title
@@ -48,7 +49,7 @@ set showcmd
 set hidden
 set virtualedit=block
 set wrap
-set whichwrap=b,s,h,l,<,>,[,]       " No left/right key should have to stop at line breaks
+set whichwrap=b,s,h,l,<,>,[,] " No left/right key should have to stop at line breaks
 
 set expandtab
 set tabstop=4
@@ -56,8 +57,6 @@ set shiftwidth=4
 set softtabstop=4
 set smarttab
 set autoindent
-set indentexpr=           " There was some wacky indenting stuff goin' on
-"autocmd FileType perl set smartindent
 
 set list listchars=tab:>-,extends:>,precedes:<,trail:·
 set ignorecase
@@ -71,118 +70,147 @@ set laststatus=2
 set wildmenu
 set wildmode=list:longest
 
+let mapleader = ","
+
 let g:python_host_prog  = "/usr/local/bin/python"
 let g:python3_host_prog = "/usr/local/bin/python3"
 
-"let mapleader=' '
-let mapleader = ","
-
-"Remove all autocommand
-"au!
-
-"mousing
+" mousing
 set mouse=nvi
 map <F1> <Esc>:set mouse=<CR>
 map <F2> <Esc>:set mouse=nvi<CR>
 
-"disable incremental search and replace
+" disable incremental search and replace
 set inccommand=""
 
-if has('unix')
-    set bk bdir=.,~/.vimbak,/tmp,/var/tmp       " Backup settings
-    set     dir=.,~/.vimswp,/tmp,/var/tmp       " Swap file
-endif
+" write backup files to a different directory
+set backupdir=~/.vim/backup
+set directory=~/.vim/backup
 
-if has("syntax") && &t_Co > 2 || has("gui_running")
-  if has("syntax") && &t_Co >= 256
-    set background=light
-    colorscheme jml
-    let &colorcolumn=join(range(100,100),",")
-  endif
+" Colors
+set background=light
+colorscheme jml
+let &colorcolumn=join(range(100,100),",")
 
-  augroup filetype
-    au! BufRead,BufNewFile *.t  setlocal filetype=perl
-    au! BufRead,BufNewFile *.html setlocal filetype=mason
-    au! BufRead,BufNewFile autohandler setlocal filetype=mason
-    au! BufRead,BufNewFile *.buf setlocal filetype=sql
-    au! BufRead,BufNewFile *.cf setlocal filetype=cf3
-    au! BufRead,BufNewFile Capfile setlocal filetype=ruby
-    au! BufRead,BufNewFile *.md setlocal filetype=markdown
-    au! BufRead,BufNewFile *.json setlocal foldmethod=syntax
-    au! BufRead,BufNewFile *.scala setlocal filetype=scala
-    au! BufRead,BufNewFile *.java setlocal filetype=java
-    au! BufNewFile,BufRead *.mako set filetype=mako
-  augroup END
-endif
+" Don't move cursor when typing *. (from emilyst)
+nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+vnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 
-au BufRead,BufNewFile *.wiki setlocal spell
-au BufRead,BufNewFile *.md setlocal spell
-au BufNewFile,BufRead *txt,*.html,*.tex,README setlocal spell
+" window movement
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 
-"scala
-au BufRead,BufNewFile *.scala setlocal shiftwidth=2
-au BufRead,BufNewFile *.scala setlocal softtabstop=2
-"au! BufWritePost *.scala Neomake
-au BufWritePost *.scala call atags#generate()
-"au BufWritePost *.scala :EnTypeCheck
-" automatically reload scala files for scalariform
-"au FocusGained,BufEnter *.scala :silent! !
-"au BufRead,BufNewFile *.scala setlocal autoread
+" Move out of terminal window
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
 
-"python
-au! BufWritePost *.py Neomake
+"escape out of terminal mode
+:tnoremap <A-[> <C-\><C-n>
 
-"java
-"au! BufWritePost *.java Neomake
-au! BufWritePost *.java call atags#generate()
-au BufNewFile,BufRead *.mako setlocal tabstop=2
-au BufNewFile,BufRead *.mako setlocal softtabstop=2
-au BufNewFile,BufRead *.mako setlocal shiftwidth=2
+augroup text
+    autocmd!
+    autocmd BufRead,BufNewFile *.wiki setlocal spell
+    autocmd BufRead,BufNewFile *.md setlocal spell
+    autocmd BufNewFile,BufRead *txt,*.html,*.tex,README setlocal spell
+    "Markdown
+    autocmd BufRead,BufNewFile *.md setlocal filetype=markdown
+    autocmd BufNewFile,BufRead *.md,*.markdown setlocal textwidth=80
+    "Vimwiki
+    autocmd BufNewFile,BufRead *.wiki setlocal textwidth=80
+    "API bluepring
+    autocmd BufNewFile,BufRead *.apib setlocal textwidth=80
+augroup end
 
-"haskell
-au BufNewFile,BufRead *.hs,*.lhs setlocal tabstop=4
-au BufNewFile,BufRead *.hs,*.lhs setlocal softtabstop=4
-au BufNewFile,BufRead *.hs,*.lhs setlocal shiftwidth=4
+augroup scala
+    autocmd!
+    autocmd BufRead,BufNewFile *.scala,*.sbt setlocal filetype=scala
+    autocmd BufRead,BufNewFile *.scala,*.sbt setlocal shiftwidth=2
+    autocmd BufRead,BufNewFile *.scala,*.sbt setlocal softtabstop=2
+    autocmd BufWritePost *.scala,*.sbt call atags#generate()
+    autocmd Syntax *.scala,*sbt RainbowParenthesesLoadRound
+    autocmd VimEnter,BufRead,BufNewFile *.clojure,*.sbt RainbowParenthesesToggle
+    autocmd VimEnter,BufRead,BufNewFile *.scala,*.sbt RainbowParenthesesToggle
+augroup end
 
-"html and ruby
-au BufNewFile,BufRead *.html,*.html.erb setlocal tabstop=2
-au BufNewFile,BufRead *.html,*.html.erb setlocal softtabstop=2
-au BufNewFile,BufRead *.html,*.html.erb setlocal shiftwidth=2
+augroup python
+    autocmd!
+    autocmd BufWritePost *.py Neomake
+augroup end
 
-"mako templating
-au BufNewFile,BufRead *.mako setlocal tabstop=2
-au BufNewFile,BufRead *.mako setlocal softtabstop=2
-au BufNewFile,BufRead *.mako setlocal shiftwidth=2
+augroup ruby
+    autocmd!
+    autocmd BufWritePost *.rb Neomake
+    autocmd BufNewFile,BufRead *.rb setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.rb setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.rb setlocal shiftwidth=2
+augroup end
 
-"TeX LaTeX
-au BufNewFile,BufRead *.tex set tw=80
+augroup java
+    autocmd!
+    autocmd BufWritePost *.java call atags#generate()
+    autocmd BufRead,BufNewFile *.java setlocal filetype=java
+augroup end
 
-"Google Go
-au BufNewFile,BufRead *.go set syntax=go noexpandtab si
+augroup haskell
+    autocmd!
+    autocmd BufNewFile,BufRead *.hs,*.lhs setlocal tabstop=4
+    autocmd BufNewFile,BufRead *.hs,*.lhs setlocal softtabstop=4
+    autocmd BufNewFile,BufRead *.hs,*.lhs setlocal shiftwidth=4
+augroup end
 
-"Objective C
-autocmd BufNewFile,BufRead *.m vmap ,: :<C-U>AlignCtrl rlp0P0\|<CR>:'<,'>Align :<CR>
+augroup html
+    autocmd!
+    autocmd BufNewFile,BufRead *.html,*.html.erb setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.html,*.html.erb setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.html,*.html.erb setlocal shiftwidth=2
+augroup end
 
-"Markdown
-autocmd BufNewFile,BufRead *.md,*.markdown setlocal textwidth=80
+augroup tex
+    autocmd!
+    autocmd BufNewFile,BufRead *.tex set tw=80
+augroup end
 
-"XML
-let g:xml_syntax_folding=1
-au FileType xml setlocal foldmethod=syntax
+augroup googlego
+    autocmd!
+    autocmd BufNewFile,BufRead *.go set syntax=go noexpandtab si
+augroup end
+
+augroup objectivec
+    autocmd!
+    autocmd BufNewFile,BufRead *.m vmap ,: :<C-U>AlignCtrl rlp0P0\|<CR>:'<,'>Align :<CR>
+augroup end
+
+augroup clojure
+    autocmd!
+    autocmd BufRead,BufNewFile *.clj,*.clojure setlocal filetype=clojure
+    autocmd BufEnter *.clj RainbowParenthesesToggle
+    autocmd BufLeave *.clj RainbowParenthesesToggle
+    autocmd Syntax *.clj RainbowParenthesesLoadBraces
+    autocmd Syntax *.clj RainbowParenthesesLoadRound
+    autocmd Syntax *.clj RainbowParenthesesLoadSquare
+    autocmd Syntax *.clojure RainbowParenthesesLoadBraces
+    autocmd Syntax *.clojure RainbowParenthesesLoadRound
+    autocmd Syntax *.clojure RainbowParenthesesLoadSquare
+augroup end
 
 "Latex-Suite
 let g:Tex_ViewRule_pdf = 'Preview'
 let g:tex_flavor='latex'
 
+" neomake
+let g:neomake_python_python_exe = 'python3'
+
+" Yank to end of the line
 nmap Y y$
 " Yank visually selected block then comment out
 vmap ,yc ygv:normal i#<CR>
 map ; q:
 
-"" Awesome copy and pasting via Bracket
-"vmap ,x :w !pbcopy<CR><CR>
-"nmap ,p :r !pbpaste<CR><CR>
-" copy into system buffer
+" Copy selection into system copy buffer
 vmap <leader>x "*y
 
 " make * work in visual mode
@@ -206,37 +234,23 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_mruf_relative = 1
 
 " Integrate ack into vim via :Ack command
-" Thanks saikobee
+" Thanks wavebeem
 command! Wack exec 'Ack -w "' . expand('<cword>') . '"'
 
 " K will ack for the text under the cursor
 nnoremap K :Wack<CR>
 vnoremap K <Nop>
 
+" Completion
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Ctag navigation
 map <leader>t :CtrlPTag<CR>
 nnoremap <c-]> :CtrlPtjump<cr>
 vnoremap <c-]> :CtrlPtjumpVisual<cr>
-let g:ctrlp_tjump_shortener = ['/home/.*/gems/', '.../']
 "If there is only one tag found, it is possible to open it without opening CtrlP window:
 let g:ctrlp_tjump_only_silent = 1
-
-"write backup files to a different directory
-set backupdir=~/.vim/backup
-set directory=~/.vim/backup
-
-" window movement
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
-" Move out of terminal window
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-
-"escape out of terminal mode
-:tnoremap <A-[> <C-\><C-n>
 
 "airline
 let g:airline_powerline_fonts = 1
@@ -244,105 +258,12 @@ let g:airline_powerline_fonts = 1
 "json
 let g:vim_json_syntax_conceal = 0
 
-:inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
-
-function! Tab_Or_Complete()
-  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-    return "\<C-N>"
-  else
-    return "\<Tab>"
-  endif
-endfunction
-
 "Git Fugitive
-let g:fugitive_github_domains = ['https://github.banksimple.com']
-
-" use <C-\><C-n> to escape terminal window
-" remapping <ESC> to do this breaks fish vim mode
+let g:github_enterprise_urls = ['https://github.banksimple.com']
 
 " New terminal with Fish shell
 command Fish terminal exec fish
 
-"syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-"ensime
-"nmap <leader>d :EnDeclaration<CR>
-"nmap <leader>t :EnInspectType<CR>
-
-"Move to nvimrc
-"neomake
-"let g:neomake_open_list = 0
-"let g:neomake_list_height = 10
-"let g:neomake_verbose = 0
-"let g:neomake_logfile = 'neomake.log'
-
-" 'errorformat': '%E%f:%l: %t%m,%Z%p^,%-G%.%#',
-
-"let g:neomake_scala_fsclint_maker = {
-"        \ 'exe': 'scalalint',
-"        \ 'errorformat':
-"            \ '%E%f:%l: %trror:%m,' .
-"            \ '%W%f:%l: %tarning:%m,' .
-"            \ '%Z%p^,' .
-"            \ '%-G%.%#,',
-"        \ 'args': [
-"            \ '-Xfatal-warnings:false',
-"            \ '-Xfuture',
-"            \ '-Xlint',
-"            \ '-Ywarn-adapted-args',
-"            \ '-Ywarn-dead-code',
-"            \ '-Ywarn-inaccessible',
-"            \ '-Ywarn-infer-any',
-"            \ '-Ywarn-nullary-override',
-"            \ '-Ywarn-nullary-unit',
-"            \ '-Ywarn-numeric-widen',
-"            \ '-Ywarn-unused-import',
-"            \ '-deprecation',
-"            \ '-encoding UTF-8',
-"            \ '-feature',
-"            \ '-language:existentials',
-"            \ '-language:higherKinds',
-"            \ '-language:implicitConversions',
-"            \ '-unchecked',
-"            \ '-d /private/var/tmp/',
-"        \ ]
-"    \ }
-""            \ '-Ywarn-value-discard',
-"let g:neomake_scala_enabled_makers = ['fsclint']
-
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
-
-au VimEnter,BufRead,BufNewFile *.scala RainbowParenthesesToggle
-au Syntax *.scala RainbowParenthesesLoadRound
-au VimEnter,BufRead,BufNewFile *.clojure RainbowParenthesesToggle
-au Syntax *.clojure RainbowParenthesesLoadRound
-au Syntax *.clojure RainbowParenthesesLoadSquare
-au Syntax *.clojure RainbowParenthesesLoadBraces
+" autoformat
+let g:formatters_scala = ['scalafmt']
+let g:formatdef_scalafmt = '"scalafmt --config .scalafmt.conf --stdin 2>/dev/null"'
