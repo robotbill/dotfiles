@@ -220,6 +220,12 @@ let g:ctrlp_extension = ['tag', 'mixed']
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_mruf_relative = 1
 
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_use_caching = 0
+  let g:ackprg='ag --nogroup --nocolor --column'
+endif
+
 " Completion
 let g:deoplete#enable_at_startup = 1
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
