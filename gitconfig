@@ -1,0 +1,24 @@
+[user]
+    name = Joe Lewis
+    email = fake@fake.com
+
+[alias]
+    unstage = "reset HEAD --"
+    # Show branches with the most recent commits
+    rb = "for-each-ref --sort='-committerdate' refs/heads/ --count 7 --format='%(HEAD) %(color:blue)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'"
+    praise = blame
+
+[core]
+    excludesfile = ~/.gitignore
+    editor = nvim
+    pager = diff-so-fancy | less --tabs=4 -RFX
+
+[push]
+    default = nothing
+
+[merge]
+    tool = vimdiff
+[mergetool]
+    prompt = true
+[mergetool "vimdiff"]
+    cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'

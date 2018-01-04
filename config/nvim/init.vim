@@ -17,7 +17,7 @@ Plug 'fntlnz/atags.vim'
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'ivalkeen/vim-ctrlp-tjump'
 Plug 'jlanzarotta/bufexplorer'
-Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure', 'scala'] }
+Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure'] }
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper'
 Plug 'rhysd/committia.vim'
@@ -130,9 +130,6 @@ augroup scala
     autocmd BufRead,BufNewFile *.scala,*.sbt setlocal shiftwidth=2
     autocmd BufRead,BufNewFile *.scala,*.sbt setlocal softtabstop=2
     autocmd BufWritePost *.scala,*.sbt call atags#generate()
-    autocmd Syntax *.scala,*sbt RainbowParenthesesLoadRound
-    autocmd VimEnter,BufRead,BufNewFile *.clojure,*.sbt RainbowParenthesesToggle
-    autocmd VimEnter,BufRead,BufNewFile *.scala,*.sbt RainbowParenthesesToggle
 augroup end
 
 augroup python
