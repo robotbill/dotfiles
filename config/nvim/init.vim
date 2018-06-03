@@ -28,7 +28,7 @@ Plug 'sukima/xmledit', { 'for': 'xml' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 call plug#end()
 
@@ -120,6 +120,7 @@ augroup text
     autocmd BufNewFile,BufRead *.md,*.markdown setlocal textwidth=80
     "Vimwiki
     autocmd BufNewFile,BufRead *.wiki setlocal textwidth=80
+    autocmd BufNewFile,BufRead *.wiki setlocal foldmethod=expr
     "API bluepring
     autocmd BufNewFile,BufRead *.apib setlocal textwidth=80
 augroup end
@@ -149,6 +150,9 @@ augroup java
     autocmd!
     autocmd BufWritePost *.java call atags#generate()
     autocmd BufRead,BufNewFile *.java setlocal filetype=java
+    autocmd BufNewFile,BufRead *.java setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.java setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.java setlocal shiftwidth=2
 augroup end
 
 augroup haskell
@@ -255,3 +259,13 @@ nmap gs <plug>(GrepperOperator)
 nmap gs <plug>(GrepperOperator)
 " K searches for word under the current character
 nmap K gsiw
+
+" vimwiki
+let wiki = {}
+let wiki.path = '~/vimwiki/'
+let wiki.syntax = 'markdown'
+let wiki.ext = '.md'
+let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sql': 'sql', 'xml': 'xml'}
+let g:vimwiki_list = [wiki]
+let g:vimwiki_folding='expr'
+
