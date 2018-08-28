@@ -71,6 +71,9 @@ set wildmode=list:longest
 
 let mapleader = ","
 
+" Automatically load changes
+set autoread
+
 let g:python_host_prog  = "/usr/local/bin/python"
 let g:python3_host_prog = "/usr/local/bin/python3"
 
@@ -265,7 +268,7 @@ let wiki = {}
 let wiki.path = '~/vimwiki/'
 let wiki.syntax = 'markdown'
 let wiki.ext = '.md'
-let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sql': 'sql', 'xml': 'xml'}
+let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sql': 'sql', 'xml': 'xml', 'scala': 'scala'}
 let g:vimwiki_list = [wiki]
 let g:vimwiki_folding='expr'
 
