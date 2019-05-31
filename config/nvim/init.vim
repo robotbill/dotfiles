@@ -28,6 +28,7 @@ Plug 'sukima/xmledit', { 'for': 'xml' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'vimwiki/vimwiki'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'hashivim/vim-terraform'
