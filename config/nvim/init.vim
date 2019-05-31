@@ -23,14 +23,14 @@ Plug 'mhinz/vim-grepper'
 Plug 'rhysd/committia.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'shime/vim-livedown', { 'for': 'markdown' }
+Plug 'previm/previm'
 Plug 'sukima/xmledit', { 'for': 'xml' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'vimwiki/vimwiki'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'hashivim/vim-terraform'
 
 call plug#end()
 
@@ -210,6 +210,13 @@ augroup clojure
     autocmd Syntax *.clojure RainbowParenthesesLoadSquare
 augroup end
 
+augroup terraform
+    autocmd!
+    autocmd BufRead,BufNewFile *.tf setlocal filetype=terraform
+    autocmd BufRead,BufNewFile *.tf setlocal shiftwidth=2
+    autocmd BufRead,BufNewFile *.tf setlocal softtabstop=2
+augroup end
+
 "Latex-Suite
 let g:Tex_ViewRule_pdf = 'Preview'
 let g:tex_flavor='latex'
@@ -278,7 +285,7 @@ let wiki = {}
 let wiki.path = '~/vimwiki/'
 let wiki.syntax = 'markdown'
 let wiki.ext = '.md'
-let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sql': 'sql', 'xml': 'xml', 'scala': 'scala'}
+let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sql': 'sql', 'xml': 'xml', 'scala': 'scala', 'json': 'json', 'java': 'java'}
 let g:vimwiki_list = [wiki]
 let g:vimwiki_folding='expr'
 
@@ -290,3 +297,5 @@ let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetsDir="~/.config/nvim/ultisnips/"
 
+" previm
+let g:previm_open_cmd = 'open -a Firefox'

@@ -10,9 +10,9 @@ function vim
     nvim $argv
 end
 
-function grep
-    ggrep $argv
-end
+#function grep
+#    ggrep $argv
+#end
 
 function weather
     curl wttr.in/pdx
