@@ -9,7 +9,7 @@ Plug 'GEverding/vim-hocon'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'benekastah/neomake'
 Plug 'bling/vim-airline'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 Plug 'dag/vim-fish'
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'elzr/vim-json', { 'for': 'json' }
@@ -28,7 +28,9 @@ Plug 'sukima/xmledit', { 'for': 'xml' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+Plug 'vimwiki/vimwiki'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -158,6 +160,14 @@ augroup java
     autocmd BufNewFile,BufRead *.java setlocal shiftwidth=2
 augroup end
 
+augroup javascript
+    autocmd!
+    autocmd BufRead,BufNewFile *.js setlocal filetype=javascript
+    autocmd BufNewFile,BufRead *.js setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.js setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.js setlocal shiftwidth=2
+augroup end
+
 augroup haskell
     autocmd!
     autocmd BufNewFile,BufRead *.hs,*.lhs setlocal tabstop=4
@@ -271,4 +281,12 @@ let wiki.ext = '.md'
 let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sql': 'sql', 'xml': 'xml', 'scala': 'scala'}
 let g:vimwiki_list = [wiki]
 let g:vimwiki_folding='expr'
+
+" Snippets
+
+let g:UltiSnipsExpandTrigger="<c-s>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetsDir="~/.config/nvim/ultisnips/"
 
