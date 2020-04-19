@@ -4,6 +4,7 @@ set shell=/bin/bash
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'aklt/plantuml-syntax'
 Plug 'Chiel92/vim-autoformat'
 Plug 'GEverding/vim-hocon'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -23,15 +24,19 @@ Plug 'mhinz/vim-grepper'
 Plug 'rhysd/committia.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/vim-slumlord'
 Plug 'previm/previm'
 Plug 'sukima/xmledit', { 'for': 'xml' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-markdown'
 Plug 'vimwiki/vimwiki'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'hashivim/vim-terraform'
+Plug 'jamessan/vim-gnupg'
+Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
 call plug#end()
 
@@ -288,7 +293,9 @@ let wiki.syntax = 'markdown'
 let wiki.ext = '.md'
 let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sql': 'sql', 'xml': 'xml', 'scala': 'scala', 'json': 'json', 'java': 'java'}
 let g:vimwiki_list = [wiki]
-let g:vimwiki_folding='expr'
+"let g:vimwiki_folding='expr'
+let g:vimwiki_folding=''
+let g:vimwiki_global_ext=0
 
 " Snippets
 
@@ -300,3 +307,6 @@ let g:UltiSnipsSnippetsDir="~/.config/nvim/ultisnips/"
 
 " previm
 let g:previm_open_cmd = 'open -a Firefox'
+
+" vim markdown
+let g:markdown_fenced_languages = ['sql', 'python']
