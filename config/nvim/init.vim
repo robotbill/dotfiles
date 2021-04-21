@@ -36,7 +36,6 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'hashivim/vim-terraform'
 Plug 'jamessan/vim-gnupg'
-Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
 call plug#end()
 
@@ -147,6 +146,7 @@ augroup end
 augroup python
     autocmd!
     autocmd BufWritePost *.py Neomake
+    autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr><C-o>
 augroup end
 
 augroup ruby
@@ -155,6 +155,13 @@ augroup ruby
     autocmd BufNewFile,BufRead *.rb setlocal tabstop=2
     autocmd BufNewFile,BufRead *.rb setlocal softtabstop=2
     autocmd BufNewFile,BufRead *.rb setlocal shiftwidth=2
+augroup end
+
+augroup yaml
+    autocmd!
+    autocmd BufNewFile,BufRead *.yml,*.yaml setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.yml,*.yaml setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.yml,*.yaml setlocal shiftwidth=2
 augroup end
 
 augroup java
