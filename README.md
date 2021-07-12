@@ -5,7 +5,7 @@
 * homebrew
 * fish
 * neovim
-* silver searcher
+* silver searcher (maybe use ripgrep instead)
 * sl
 * git
 * iTerm

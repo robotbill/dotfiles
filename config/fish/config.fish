@@ -18,6 +18,7 @@ function weather
     curl wttr.in/pdx
 end
 
+#set -gx PATH /usr/bin $HOME/bin $HOME/.jenv/bin $PATH
 set -gx PATH $PATH $HOME/bin $HOME/.jenv/bin
 
 if functions --query 'machine_specific'
