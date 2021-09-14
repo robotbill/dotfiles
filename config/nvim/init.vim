@@ -27,18 +27,26 @@ Plug 'hrsh7th/nvim-compe'
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Telescope
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+"Plug 'nvim-lua/popup.nvim'
+"Plug 'nvim-lua/plenary.nvim'
+"Plug 'nvim-telescope/telescope.nvim'
+
+" fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " Language Support
 Plug 'dag/vim-fish'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'tpope/vim-markdown'
 
+" Testing
+Plug 'vim-test/vim-test'
+
 Plug 'previm/previm'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 
@@ -68,12 +76,16 @@ let mapleader=","               " Set <leader> to ','
 set backupdir=~/.vim/backup     " Write backup files to a different directory
 set directory=~/.vim/backup     " Write swap files to a different directory
 
+set shell=/bin/bash             " Maybe this will make things faster??
+
 " }}}
 " Python Provider Configuration ------------------------------------------- {{{
 let g:python_host_prog  = "/usr/local/bin/python"
 let g:python3_host_prog = "/usr/local/bin/python3"
 " TODO consider setting up a virtual env for neovim
 " see: https://github.com/deoplete-plugins/deoplete-jedi/wiki/Setting-up-Python-for-Neovim
+" Disable Ruby Provider (for better performance?)
+let g:loaded_ruby_provider = 0
 
 " }}}
 " Searching --------------------------------------------------------------- {{{
@@ -98,7 +110,7 @@ set shiftwidth=4                " Number of spaces to use for auto indent
 " Visual Changes ---------------------------------------------------------- {{{
 set background = "light"
 colorscheme jml
-let &colorcolumn=join(range(100,100),",")
+let &colorcolumn=join(range(81,81),",")
 
 let g:airline_powerline_fonts = 1
 
@@ -195,10 +207,10 @@ augroup end
 
 augroup javascript
     autocmd!
-    autocmd BufRead,BufNewFile *.js setlocal filetype=javascript
-    autocmd BufNewFile,BufRead *.js setlocal tabstop=2
-    autocmd BufNewFile,BufRead *.js setlocal softtabstop=2
-    autocmd BufNewFile,BufRead *.js setlocal shiftwidth=2
+    autocmd BufRead,BufNewFile *.js,*.ts setlocal filetype=javascript
+    autocmd BufNewFile,BufRead *.js,*.ts setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.js,*.ts setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.js,*.ts setlocal shiftwidth=2
 augroup end
 
 augroup haskell
@@ -268,6 +280,9 @@ let g:vimwiki_list = [wiki]
 let g:vimwiki_folding=''
 let g:vimwiki_global_ext=0  " Don't turn all markdown files into vimwikis
 
+" Previm
+let g:previm_open_cmd = 'open -a Firefox'
+
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<c-s>"
 let g:UltiSnipsJumpForwardTrigger="<c-n>"
@@ -275,18 +290,28 @@ let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetsDir="~/.config/nvim/ultisnips/"
 
+" test.vim
+let test#strategy = 'neovim'
+let test#ruby#use_spring_binstub = 1
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>gt :TestVisit<CR>
+
 " fzf
 " Replace CtrlP
-"nmap <C-p> :Files<CR>
+nmap <C-p> :Files<CR>
 "map <leader>t :Tags<CR>
-"" Replace Bufexplorer
-"map <leader>be :Buffers<CR>
+" Replace Bufexplorer
+map <leader>be :Buffers<CR>
+
 " Telescope
-nnoremap <C-p> <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>be <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap K <cmd>Telescope grep_string<cr>
+"nnoremap <C-p> <cmd>Telescope find_files<cr>
+"nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+"nnoremap <leader>be <cmd>Telescope buffers<cr>
+"nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+"nnoremap <leader>fs <cmd>Telescope grep_string<cr>
+
 
 " Completion with Compe
 set completeopt=menuone,noselect
