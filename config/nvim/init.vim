@@ -227,6 +227,13 @@ augroup html
     autocmd BufNewFile,BufRead *.html,*.html.erb setlocal shiftwidth=2
 augroup end
 
+augroup css
+    autocmd!
+    autocmd BufNewFile,BufRead *.css,*.scss setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.css,*.scss setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.css,*.scss setlocal shiftwidth=2
+augroup end
+
 augroup tex
     autocmd!
     autocmd BufNewFile,BufRead *.tex set tw=80
@@ -304,6 +311,7 @@ nmap <C-p> :Files<CR>
 "map <leader>t :Tags<CR>
 " Replace Bufexplorer
 map <leader>be :Buffers<CR>
+nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 
 " Telescope
 "nnoremap <C-p> <cmd>Telescope find_files<cr>
