@@ -17,3 +17,5 @@
 * pgcli
 * aws-vault
 * jq
+* diff-so-fancy
+* [Finicky](https://github.com/johnste/finicky)
