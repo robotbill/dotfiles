@@ -12,11 +12,11 @@ cmp.setup({
   },
   mapping = {
     ["<Tab>"] = cmp.mapping({
-      c = function()
+      c = function(fallback)
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
         else
-          cmp.complete()
+          fallback()
         end
       end,
       i = function(fallback)
@@ -115,22 +115,6 @@ cmp.setup({
     { name = 'ultisnips' }, -- For ultisnips users.
   }, {
     { name = 'buffer' },
-  })
-})
-
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
-  sources = {
-    { name = 'buffer' }
-  }
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
   })
 })
 EOF

@@ -114,7 +114,7 @@ set shiftwidth=4                " Number of spaces to use for auto indent
 " Visual Changes ---------------------------------------------------------- {{{
 set background = "light"
 colorscheme jml
-let &colorcolumn=join(range(81,81),",")
+let &colorcolumn=join(range(84,84),",")
 
 let g:airline_powerline_fonts = 1
 
@@ -211,10 +211,10 @@ augroup end
 
 augroup javascript
     autocmd!
-    autocmd BufRead,BufNewFile *.js,*.ts setlocal filetype=javascript
-    autocmd BufNewFile,BufRead *.js,*.ts setlocal tabstop=2
-    autocmd BufNewFile,BufRead *.js,*.ts setlocal softtabstop=2
-    autocmd BufNewFile,BufRead *.js,*.ts setlocal shiftwidth=2
+    autocmd BufRead,BufNewFile *.js,*.ts,*.tsx setlocal filetype=javascript
+    autocmd BufNewFile,BufRead *.js,*.ts,*.tsx setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.js,*.ts,*.tsx setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.js,*.ts,*.tsx setlocal shiftwidth=2
 augroup end
 
 augroup haskell
@@ -285,7 +285,16 @@ let wiki.path_html = '~/vimwiki/site_html/'
 let wiki.custom_wiki2html = 'vimwiki_markdown'
 let wiki.html_filename_parameterization = 1
 let wiki.template_ext = '.html'
-let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sql': 'sql', 'xml': 'xml', 'scala': 'scala', 'json': 'json', 'java': 'java'}
+let wiki.nested_syntaxes = {
+            \'c++': 'cpp',
+            \'java': 'java',
+            \'json': 'json',
+            \'python': 'python',
+            \'ruby': 'ruby',
+            \'scala': 'scala',
+            \'sql': 'sql',
+            \'xml': 'xml'
+            \}
 let g:vimwiki_list = [wiki]
 "let g:vimwiki_folding='expr'
 let g:vimwiki_folding=''
@@ -304,6 +313,7 @@ let g:UltiSnipsSnippetsDir="~/.config/nvim/ultisnips/"
 " test.vim
 let test#strategy = 'neovim'
 let test#ruby#use_spring_binstub = 1
+let g:test#javascript#jest#executable = 'yarn jest'
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>tl :TestLast<CR>
