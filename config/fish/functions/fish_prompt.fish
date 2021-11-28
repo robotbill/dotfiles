@@ -1,12 +1,9 @@
-function fish_prompt
-    set last_status $status
-    set_color red
-    printf '%s' (hostname|cut -d . -f 1)
-    set_color green
-    printf ' [%s]' (prompt_pwd)
+function fish_prompt --on-variable fish_bind_mode
+    set_color yellow
+    printf '%s' (prompt_pwd)
     set_color blue
     printf '%s' (__fish_git_prompt)
-    vi_mode_color
-    printf '\n❯ '
+    set_color green
+    printf '❯ '
     set_color normal
 end
