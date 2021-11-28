@@ -14,25 +14,25 @@ vim.g.colors_name = "jml"
 vim.opt.background = "light"
 
 local black = "#000000"
-local offblack = "#4C422F"
+local offblack = "#4c422f"
 
-local red = "#9B0901"
-local lightred = "#CB312F"
+local red = "#9b0901"
+local lightred = "#cb312f"
 
-local green = "#009728"
-local lightgreen = "#25BC26"
+local green = "#1d6931"
+local lightgreen = "#1da11d"
 
-local yellow = "#B16404"
-local lightyellow = "#FF8A1A"
+local yellow = "#b16404"
+local lightyellow = "#eeb123"
 
 local blue = "#0451b1"
-local lightblue = "#0451B1"
+local lightblue = "#2360ee"
 
-local magenta = "#97006F"
-local lightmagenta = "#BC25BC"
+local magenta = "#691d55"
+local lightmagenta = "#a11da0"
 
-local cyan = "#01939B"
-local lightcyan = "#2FC9CB"
+local cyan = "#01939b"
+local lightcyan = "#2fc9cb"
 
 local darkoffwhite = "#e9e4da"
 local offwhite = "#fffaf1"
