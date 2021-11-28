@@ -4,8 +4,11 @@ set encoding=utf-8
 " Plugins ----------------------------------------------------------------- {{{
 call plug#begin(stdpath('data') . '/plugged')
 
+Plug 'nvim-lua/plenary.nvim'
+
 " Visual
-Plug 'bling/vim-airline'
+"Plug 'bling/vim-airline'
+Plug 'famiu/feline.nvim'
 
 " Notes
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
@@ -16,6 +19,7 @@ Plug 'SirVer/ultisnips'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'lewis6991/gitsigns.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
@@ -43,6 +47,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'dag/vim-fish'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'tpope/vim-markdown'
+Plug 'fladson/vim-kitty'
 
 " Testing
 Plug 'vim-test/vim-test'
@@ -116,7 +121,7 @@ set background = "light"
 colorscheme jml
 let &colorcolumn=join(range(84,84),",")
 
-let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 1
 
 set cmdheight=2                 " Use two lines for the command line
 set scrolloff=1                 " Keep at least 1 line above or below the cursor
@@ -336,3 +341,16 @@ nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 
 " }}}
 " Skipped from old configuration ------------------------------------------ {{{
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunction
+
+function! SynGroup()
+  let l:s = synID(line('.'), col('.'), 1)
+  echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
+
+map <leader>c :call SynGroup()<CR>

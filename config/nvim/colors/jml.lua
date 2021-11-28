@@ -13,108 +13,163 @@ vim.cmd [[
 vim.g.colors_name = "jml"
 vim.opt.background = "light"
 
-local default = "#000000"
-local background = "NONE"
-local comment_fg = "#080707"
-local comment_bg = "#e5e4e5"
-local constant_base = "#d75f00"
+local black = "#000000"
+local offblack = "#4C422F"
 
-local darkgreen = "#005f00"
+local red = "#9B0901"
+local lightred = "#CB312F"
+
+local green = "#009728"
+local lightgreen = "#25BC26"
+
+local yellow = "#B16404"
+local lightyellow = "#FF8A1A"
+
+local blue = "#0451b1"
+local lightblue = "#0451B1"
+
+local magenta = "#97006F"
+local lightmagenta = "#BC25BC"
+
+local cyan = "#01939B"
+local lightcyan = "#2FC9CB"
+
+local darkoffwhite = "#e9e4da"
+local offwhite = "#fffaf1"
+
+local default = black
 
 local hi = function(group, opts)
   vim.cmd(
     string.format("hi %s guifg=%s guibg=%s gui=%s guisp=%s",
       group,
       opts.fg or default,
-      opts.bg or background,
+      opts.bg or "NONE",
       opts.gui or "NONE", 
       opts.sp or "NONE"
     )
   )
 end
 
-hi("Normal", { fg = fg })
+local link = function(from, to)
+  vim.cmd(string.format("hi! link %s %s", from, to))
+end
 
-hi("Comment", { fg = comment_fg, bg = comment_bg, gui = "italic" })
+hi("Normal", { fg = normal })
 
-hi("Constant", { fg = constant_base })
-hi("String", { fg = "#005faf" })
+hi("Comment", { fg = offblack, bg = darkoffwhite, gui = "italic" })
+
+hi("Constant", { fg = yellow })
+hi("String", { fg = blue })
 -- Character
-hi("Number", { fg = "#af5f00" })
+hi("Number", { fg = cyan })
 -- Boolean
 -- Float
 
-hi("Identifier", { fg = "#00005f" })
+hi("Identifier", { fg = lightblue })
 -- Function
 
-hi("Statement", { fg = "#005f00", gui = "bold" })
+hi("Statement", { fg = green, gui = "bold" })
 -- Conditional
 -- Repeat
 -- Label
-hi("Operator", { fg = "#870087" })
+hi("Operator", { fg = lightmagenta })
 -- Keyword
 -- Exception
 
-hi("PreProc", { fg = "#000087" })
+hi("PreProc", { fg = red, gui = "bold" })
 -- Include
 -- Define
 -- Macro
 -- PreCondit
 
-hi("Type", { fg = "#af0087" })
+hi("Type", { fg = magenta, gui = "italic" })
 -- StorageClass
 -- Structure
 -- Typedef
 
-hi("Special", { fg = "#8787d7" })
+hi("Special", { fg = lightcyan })
 -- SpecialChar
 -- Tag
 -- Delimiter
 -- SpecialComment
 -- Debug
 
-hi("Underlined", { fg = "#0000ff", bg = "#e4e4e4", gui = "underline" })
+hi("Underlined", { fg = lightblue, gui = "underline" })
 
-hi("Ignore", { fg = "#af00ff" })
+hi("Ignore", { fg = lightmagenta })
 
-hi("Error", { fg = "#ffffff", bg = "#d70000" })
+hi("Error", { fg = offwhite, bg = red })
 
 -- TODO: make this better
---  FIXME: fix it
-hi("Todo", { fg = comment_fg, bg = comment_bg, gui = "bold" })
+-- FIXME: fix it
+hi("Todo", { fg = offblack, bg = darkoffwhite, gui = "bold" })
 
-hi("ColorColumn", { bg = "#eeeeee" })
-hi("Directory", { fg = "#af5f00" })
+hi("ColorColumn", { bg = darkoffwhite })
+hi("Directory", { fg = yellow })
 
-hi("DiffAdd", { fg = "#0000d7" })
-hi("DiffChange", { fg = "#af5f00" })
-hi("DiffDelete", { fg = "#d70000" })
-hi("DiffText", { fg = "#0000d7" })
+hi("DiffAdd", { fg = green })
+hi("DiffChange", { fg = magenta })
+hi("DiffDelete", { fg = lightred })
+hi("DiffText", { fg = red })
 
-hi("ErrorMsg", { fg = "#ff0000", bg = "#ffff00" })
-hi("Vertsplit", { fg = "#444444" })
+hi("ErrorMsg", { fg = red, bg = lightyellow })
+hi("Vertsplit", { fg = offblack })
 
-hi("Folded", { fg = "#444444", bg = "#c6c6c6" })
-hi("FoldColumn", { fg = "#444444", bg = "#c6c6c6" })
+hi("Folded", { fg = offblack, bg = offwhite })
+hi("FoldColumn", { fg = offblack, bg = offwhite })
 
-hi("IncSearch", { fg = fg, bg = "#d7af00" })
-hi("Search", { fg = fg, bg = "#d7af00" })
+hi("IncSearch", { fg = normal, bg = lightyellow })
+hi("Search", { fg = normal, bg = lightyellow })
 
-hi("LineNr", { fg = "#d75f00", bg = "#eeeeee", gui = "bold" })
-hi("ModeMsg", { fg = "#ff0000" })
-hi("MoreMsg", { fg = "#005f00" })
-hi("NonText", { fg = fg })
-hi("Question", { fg = "#005f00" })
-hi("SpecialKey", { fg = "#005f00" })
-hi("SpellBad", { gui = "underline", sp = "#ff0000" })
+hi("LineNr", { fg = yellow, bg = darkoffwhite, gui = "bold" })
+hi("MatchParen", { fg = normal, bg = lightcyan })
+hi("ModeMsg", { fg = lightred })
+hi("MoreMsg", { fg = green })
+hi("NonText", { fg = normal })
+hi("Question", { fg = green })
+hi("SpecialKey", { fg = green })
+hi("SpellBad", { gui = "undercurl", sp = lightred })
 
-hi("StatusLine", { fg = "#444444" })
-hi("StatusLineNC", { fg = "#d0d0d0", bg = "#585858" })
+hi("StatusLine", { fg = offblack })
+hi("StatusLineNC", { fg = offwhite, bg = offblack })
 
-hi("Title", { fg = fg, bg = "#e4e4e4", gui = "bold" })
+hi("Title", { fg = normal, bg = darkoffwhite, gui = "bold" })
 
-hi("Visual", { gui = "reverse" })
-hi("VisualNOS", { gui = "reverse" })
+hi("Visual", { fg = offwhite, bg = offblack })
+hi("VisualNOS", { fg = offwhite, bg = offblack })
 
-hi("WarningMsg", { fg = "#000087" })
-hi("WildMenu", { fg = fg, bg = "#00af87" })
+hi("WarningMsg", { fg = blue })
+hi("WildMenu", { fg = normal, bg = green })
+
+hi("SignColumn", { fg = normal })
+
+hi("Pmenu", { fg = red, bg = darkoffwhite })
+hi("PmenuSel", { fg = offwhite, bg = offblack })
+hi("PmenuSbar", { bg = darkoffwhite })
+hi("PmenuThumb", { bg = offblack })
+
+-- LSP
+hi("LspDiagnosticsSignError", { fg = lightred })
+hi("LspDiagnosticsSignWarning", { fg = yellow })
+hi("LspDiagnosticsSignInformation", { fg = lightgreen })
+hi("LspDiagnosticsSignHint", { fg = lightblue })
+
+hi("LspDiagnosticsDefaultError", { fg = normal })
+hi("LspDiagnosticsDefaultWarning", { fg = normal })
+hi("LspDiagnosticsDefaultInformation", { fg = normal })
+hi("LspDiagnosticsDefaultHint", { fg = normal })
+
+
+-- Git Fugitive
+link("diffAdded", "diffAdd")
+link("diffRemoved", "diffDelete")
+
+-- Feline
+hi("JMLFelineDefault", { fg = offwhite, bg = offblack })
+hi("JMLFelineFileInfo", { fg = yellow, bg = darkoffwhite, gui = "bold" })
+hi("JMLFelineInactive", { fg = yellow, bg = darkoffwhite, gui = "bold" })
+hi("JMLFelineGit", { fg = lightyellow, gui = "bold" })
+
+-- nvim-cmp
+hi("CmpItemKind", { fg = cyan, bg = darkoffwhite })
