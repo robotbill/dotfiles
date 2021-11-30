@@ -169,8 +169,9 @@ augroup text
     autocmd BufRead,BufNewFile *.md setlocal spell
     autocmd BufNewFile,BufRead *txt,*.html,*.tex,README setlocal spell
     "Markdown
-    autocmd BufRead,BufNewFile *.md setlocal filetype=markdown
+    autocmd BufRead,BufNewFile *.md,*.markdown setlocal filetype=markdown
     autocmd BufNewFile,BufRead *.md,*.markdown setlocal textwidth=80
+    autocmd BufNewFile,BufRead *.md,*.markdown setlocal nowrap
     "Vimwiki
     autocmd BufNewFile,BufRead *.wiki setlocal textwidth=80
     autocmd BufNewFile,BufRead *.wiki setlocal foldmethod=expr
@@ -309,11 +310,11 @@ let g:vimwiki_global_ext=0  " Don't turn all markdown files into vimwikis
 let g:previm_open_cmd = 'open -a Firefox'
 
 " Ultisnips
-let g:UltiSnipsExpandTrigger="<c-s>"
-let g:UltiSnipsJumpForwardTrigger="<c-n>"
-let g:UltiSnipsJumpBackwardTrigger="<c-p>"
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetsDir="~/.config/nvim/ultisnips/"
+let g:UltiSnipsExpandTrigger='<Plug>(ultisnips_expand)'
+let g:UltiSnipsJumpForwardTrigger='<Plug>(ultisnips_jump_forward)'
+let g:UltiSnipsJumpBackwardTrigger='<Plug>(ultisnips_jump_backward)'
+let g:UltiSnipsListSnippets='<c-x><c-s>'
+let g:UltiSnipsRemoveSelectModeMappings=0
 
 " test.vim
 let test#strategy = 'neovim'

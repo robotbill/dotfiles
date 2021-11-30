@@ -122,7 +122,7 @@ hi("FoldColumn", { fg = brblack, bg = offwhite })
 hi("IncSearch", { fg = normal, bg = bryellow })
 hi("Search", { fg = normal, bg = bryellow })
 
-hi("LineNr", { fg = yellow, bg = darkoffwhite, gui = "bold" })
+hi("LineNr", { fg = yellow, gui = "bold" })
 hi("MatchParen", { fg = normal, bg = brcyan })
 hi("ModeMsg", { fg = brred })
 hi("MoreMsg", { fg = green })
