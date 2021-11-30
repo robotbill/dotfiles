@@ -5,6 +5,7 @@
 * homebrew
 * fish
 * neovim
+* [bat](https://github.com/sharkdp/bat)
 * silver searcher (maybe use ripgrep instead)
 * sl
 * git

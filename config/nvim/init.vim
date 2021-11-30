@@ -324,29 +324,8 @@ nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>gt :TestVisit<CR>
 
-" fzf
-" Replace CtrlP
-nmap <C-p> :Files<CR>
-"map <leader>t :Tags<CR>
-" Replace Bufexplorer
-map <leader>be :Buffers<CR>
-nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
-
-" Telescope
-"nnoremap <C-p> <cmd>Telescope find_files<cr>
-"nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-"nnoremap <leader>be <cmd>Telescope buffers<cr>
-"nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-"nnoremap <leader>fs <cmd>Telescope grep_string<cr>
-
 " }}}
 " Skipped from old configuration ------------------------------------------ {{{
-function! SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunction
 
 function! SynGroup()
   let l:s = synID(line('.'), col('.'), 1)
