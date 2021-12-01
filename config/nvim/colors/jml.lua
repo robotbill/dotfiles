@@ -173,3 +173,6 @@ hi("JMLFelineGit", { fg = bryellow, gui = "bold" })
 
 -- nvim-cmp
 hi("CmpItemKind", { fg = cyan, bg = darkoffwhite })
+
+-- NERDTree
+hi("NERDTreeCurrentNode", { fg = brblack, bg = darkoffwhite })
