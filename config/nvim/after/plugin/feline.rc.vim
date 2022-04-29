@@ -38,6 +38,9 @@ components.active[1] = {
   -- Component that shows file info
   {
     provider = 'file_info',
+    opts = {
+      type = 'relative'
+    },
     hl = 'JMLFelineFileInfo',
     left_sep = {' ', 'slant_left_2'},
     right_sep = {'slant_right_2', ' '},
@@ -66,6 +69,9 @@ components.active[2] = {
 components.inactive[1] = {
   {
     provider = 'file_info',
+    opts = {
+      type = 'relative'
+    },
     hl = "JMLFelineInactive",
     left_sep = '',
     -- Uncomment the next line to disable file icons

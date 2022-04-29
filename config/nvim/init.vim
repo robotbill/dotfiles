@@ -52,7 +52,7 @@ Plug 'fladson/vim-kitty'
 " Testing
 Plug 'vim-test/vim-test'
 
-Plug 'previm/previm'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-commentary'
@@ -294,6 +294,7 @@ let wiki.template_ext = '.html'
 let wiki.nested_syntaxes = {
             \'c++': 'cpp',
             \'java': 'java',
+            \'javascript': 'javascript',
             \'json': 'json',
             \'python': 'python',
             \'ruby': 'ruby',

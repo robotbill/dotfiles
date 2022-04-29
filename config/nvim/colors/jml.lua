@@ -169,7 +169,7 @@ link("diffRemoved", "diffDelete")
 hi("JMLFelineDefault", { fg = offwhite, bg = brblack })
 hi("JMLFelineFileInfo", { fg = yellow, bg = darkoffwhite, gui = "bold" })
 hi("JMLFelineInactive", { fg = yellow, bg = darkoffwhite, gui = "bold" })
-hi("JMLFelineGit", { fg = bryellow, gui = "bold" })
+hi("JMLFelineGit", { fg = bryellow, bg = brblack, gui = "bold" })
 
 -- nvim-cmp
 hi("CmpItemKind", { fg = cyan, bg = darkoffwhite })
