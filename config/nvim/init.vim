@@ -8,7 +8,7 @@ Plug 'nvim-lua/plenary.nvim'
 
 " Visual
 "Plug 'bling/vim-airline'
-Plug 'famiu/feline.nvim'
+Plug 'feline-nvim/feline.nvim'
 
 " Notes
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
@@ -41,6 +41,7 @@ Plug 'dag/vim-fish'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'tpope/vim-markdown'
 Plug 'fladson/vim-kitty'
+Plug 'niftylettuce/vim-jinja'
 
 " Testing
 Plug 'vim-test/vim-test'
@@ -285,6 +286,12 @@ augroup terraform
     autocmd BufRead,BufNewFile *.tf setlocal filetype=terraform
     autocmd BufRead,BufNewFile *.tf setlocal shiftwidth=2
     autocmd BufRead,BufNewFile *.tf setlocal softtabstop=2
+augroup end
+
+augroup jinja
+    au BufNewFile,BufRead *.njk set filetype=jinja
+    autocmd BufRead,BufNewFile *.njk setlocal shiftwidth=2
+    autocmd BufRead,BufNewFile *.njk setlocal softtabstop=2
 augroup end
 
 " }}}
