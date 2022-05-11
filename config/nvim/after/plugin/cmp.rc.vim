@@ -8,6 +8,10 @@ local t = function(str)
 end
 
 cmp.setup({
+  enabled = function()
+    -- Disable cmp completions in command line mode
+    return vim.api.nvim_get_mode().mode ~= 'c'
+  end,
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
