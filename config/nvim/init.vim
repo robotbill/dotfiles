@@ -293,9 +293,11 @@ let wiki.html_filename_parameterization = 1
 let wiki.template_ext = '.html'
 let wiki.nested_syntaxes = {
             \'c++': 'cpp',
+            \'haml': 'haml',
             \'java': 'java',
             \'javascript': 'javascript',
             \'json': 'json',
+            \'mermaid': 'mermaid',
             \'python': 'python',
             \'ruby': 'ruby',
             \'scala': 'scala',
