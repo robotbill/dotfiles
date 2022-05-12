@@ -144,6 +144,9 @@ map ; q:
 " Copy selection into system copy buffer
 vmap <leader>x "*y
 
+" Copy current file's relative path to system copy buffer
+nnoremap <leader>cp :let @+=expand('%')<CR>
+
 " Can move between windows using Alt and direction
 nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
@@ -336,4 +339,4 @@ function! SynGroup()
   echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfun
 
-map <leader>c :call SynGroup()<CR>
+map <leader>s :call SynGroup()<CR>
