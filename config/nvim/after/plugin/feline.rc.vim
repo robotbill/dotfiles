@@ -7,6 +7,9 @@ local components = {
     inactive = {}
 }
 
+-- Use a global status line
+vim.opt.laststatus = 3
+
 -- Duplicated from colors/jml.lua
 local offblack = "#4C422F"
 
