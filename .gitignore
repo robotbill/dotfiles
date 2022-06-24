@@ -1,3 +1,7 @@
 *.swp
 /vim/backup
 /vim/bundle
+config/nvim/machine_specific/
+config/fish/functions/machine_specific.fish
+config/pgcli/history
+config/pgcli/log
