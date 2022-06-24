@@ -14,7 +14,6 @@ local darkoffwhite = "#e9e4da"
 local offwhite = "#fffaf1"
 
 table.insert(components.active, {})
---table.insert(components.active, {})
 table.insert(components.active, {})
 
 -- Insert two sections (left and right) for the inactive statusline
@@ -37,9 +36,11 @@ components.active[1] = {
   },
   -- Component that shows file info
   {
-    provider = 'file_info',
-    opts = {
-      type = 'relative'
+    provider = {
+      name = 'file_info',
+      opts = {
+        type = 'relative'
+      }
     },
     hl = 'JMLFelineFileInfo',
     left_sep = {' ', 'slant_left_2'},
@@ -62,15 +63,18 @@ components.active[2] = {
     hl = 'JMLFelineGit',
     left_sep = ' ',
     right_sep = ' ',
-    icon = ''
+    icon = '',
+    truncate_hide = true
   }
 }
 
 components.inactive[1] = {
   {
-    provider = 'file_info',
-    opts = {
-      type = 'relative'
+    provider = {
+      name = 'file_info',
+      opts = {
+        type = 'relative'
+      }
     },
     hl = "JMLFelineInactive",
     left_sep = '',
