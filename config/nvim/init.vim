@@ -31,14 +31,6 @@ Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
 Plug 'quangnguyen30192/cmp-nvim-ultisnips', { 'branch': 'main' }
 Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
 
-" Experimental
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-" Telescope
-"Plug 'nvim-lua/popup.nvim'
-"Plug 'nvim-lua/plenary.nvim'
-"Plug 'nvim-telescope/telescope.nvim'
-
 " fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -56,6 +48,11 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-commentary'
+
+source ~/.config/nvim/machine_specific/plugins.vim
+if filereadable('~/.config/nvim/machine_specific/plugins.vim')
+    source ~/.config/nvim/machine_specific/plugins.vim
+endif
 
 call plug#end()
 
