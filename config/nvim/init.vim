@@ -30,6 +30,7 @@ Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
 Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
 Plug 'quangnguyen30192/cmp-nvim-ultisnips', { 'branch': 'main' }
 Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
+Plug 'hrsh7th/cmp-cmdline', { 'branch': 'main' }
 
 " fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -142,7 +143,7 @@ map ; q:
 vmap <leader>x "*y
 
 " Copy current file's relative path to system copy buffer
-nnoremap <leader>cp :let @+=expand('%')<CR>
+nnoremap <silent> <leader>g% :let @+=expand('%')<CR>
 
 " Can move between windows using Alt and direction
 nnoremap <A-h> <C-w>h
@@ -197,6 +198,13 @@ augroup ruby
     autocmd BufNewFile,BufRead *.rb setlocal tabstop=2
     autocmd BufNewFile,BufRead *.rb setlocal softtabstop=2
     autocmd BufNewFile,BufRead *.rb setlocal shiftwidth=2
+augroup end
+
+augroup ruby
+    autocmd!
+    autocmd BufNewFile,BufRead *.lu setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.lu setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.lu setlocal shiftwidth=2
 augroup end
 
 augroup yaml
@@ -326,7 +334,7 @@ let g:test#javascript#jest#executable = 'yarn jest'
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>gt :TestVisit<CR>
+nmap <silent> <leader>tv :TestVisit<CR>
 
 " }}}
 " Skipped from old configuration ------------------------------------------ {{{
