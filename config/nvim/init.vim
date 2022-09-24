@@ -51,7 +51,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-commentary'
 
-source ~/.config/nvim/machine_specific/plugins.vim
 if filereadable('~/.config/nvim/machine_specific/plugins.vim')
     source ~/.config/nvim/machine_specific/plugins.vim
 endif
