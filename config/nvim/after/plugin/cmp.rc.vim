@@ -7,8 +7,6 @@ local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
-
 cmp.setup({
   snippet = {
     -- REQUIRED - you must specify a snippet engine
@@ -28,8 +26,10 @@ cmp.setup({
       i = function(fallback)
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+        elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+          vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
         else
-          cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
+          fallback()
         end
       end,
       s = function(fallback)
@@ -51,12 +51,18 @@ cmp.setup({
       i = function(fallback)
         if cmp.visible() then
           cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+        elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+          return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
         else
-          cmp_ultisnips_mappings.jump_backwards(fallback)
+          fallback()
         end
       end,
       s = function(fallback)
-        cmp_ultisnips_mappings.jump_backwards(fallback)
+        if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+          return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
+        else
+          fallback()
+        end
       end
     }),
     ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
