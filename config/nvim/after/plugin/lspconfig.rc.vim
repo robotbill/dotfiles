@@ -44,10 +44,17 @@ end
 --local servers = { "pyright", "solargraph", "tsserver" }
 local servers = { "solargraph", "tsserver" }
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
+require('lspconfig')['tsserver'].setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        diagnostics = {
+            ignoredCodes = {8010}
+        }
+    }
+}
+require('lspconfig')['solargraph'].setup{
     on_attach = on_attach,
     capabilities = capabilities
-  }
-end
+}
 EOF

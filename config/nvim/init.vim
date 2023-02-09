@@ -335,6 +335,7 @@ let g:UltiSnipsRemoveSelectModeMappings=0
 
 " test.vim
 let test#strategy = 'neovim'
+let g:test#neovim#start_normal = 1
 let test#ruby#use_spring_binstub = 1
 let g:test#javascript#jest#executable = 'yarn jest'
 nmap <silent> <leader>t :TestNearest<CR>
