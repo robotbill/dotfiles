@@ -14,7 +14,8 @@ Plug 'feline-nvim/feline.nvim'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 " Snippets
-Plug 'SirVer/ultisnips'
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'}
+Plug 'saadparwaiz1/cmp_luasnip'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -40,7 +41,6 @@ Plug 'dag/vim-fish'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'tpope/vim-markdown'
 Plug 'fladson/vim-kitty'
-Plug 'niftylettuce/vim-jinja'
 
 " Testing
 Plug 'vim-test/vim-test'
@@ -325,12 +325,9 @@ let g:vimwiki_global_ext=0  " Don't turn all markdown files into vimwikis
 " Previm
 let g:previm_open_cmd = 'open -a Firefox'
 
-" Ultisnips
-let g:UltiSnipsExpandTrigger='<Plug>(ultisnips_expand)'
-let g:UltiSnipsJumpForwardTrigger='<Plug>(ultisnips_jump_forward)'
-let g:UltiSnipsJumpBackwardTrigger='<Plug>(ultisnips_jump_backward)'
-let g:UltiSnipsListSnippets='<c-x><c-s>'
-let g:UltiSnipsRemoveSelectModeMappings=0
+" LuaSnip
+lua local sl = require("luasnip.extras.snippet_list")
+lua require("luasnip.loaders.from_snipmate").load()
 
 " test.vim
 let test#strategy = 'neovim'
