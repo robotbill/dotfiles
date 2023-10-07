@@ -3,8 +3,10 @@
 ## Stuff I like to install
 
 * homebrew
+* kitty
 * fish
 * neovim
+* coreutils
 * [bat](https://github.com/sharkdp/bat)
 * silver searcher (maybe use ripgrep instead)
 * sl

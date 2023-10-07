@@ -1,4 +1,4 @@
-function fish_prompt --on-variable fish_bind_mode
+function fish_prompt
     set_color yellow
     printf '%s' (prompt_pwd)
     set_color blue
