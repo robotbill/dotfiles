@@ -1,7 +1,7 @@
 fish_vi_key_bindings
 
 set -x EDITOR nvim
-set -x KITTY_CONFIG_DIRECTORY $HOME/.config/kitty/kitty.conf
+set -x KITTY_CONFIG_DIRECTORY $HOME/.config/kitty
 
 # Use a light theme for FZF preview
 set -x COLORTERM truecolor
