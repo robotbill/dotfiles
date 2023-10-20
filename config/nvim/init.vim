@@ -47,7 +47,6 @@ Plug 'vim-test/vim-test'
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-commentary'
 
 if filereadable('~/.config/nvim/machine_specific/plugins.vim')
@@ -321,9 +320,6 @@ let g:vimwiki_list = [wiki]
 "let g:vimwiki_folding='expr'
 let g:vimwiki_folding=''
 let g:vimwiki_global_ext=0  " Don't turn all markdown files into vimwikis
-
-" Previm
-let g:previm_open_cmd = 'open -a Firefox'
 
 " LuaSnip
 lua local sl = require("luasnip.extras.snippet_list")
