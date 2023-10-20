@@ -1,8 +1,3 @@
-if !exists('g:lspconfig')
-    finish
-endif
-
-lua << EOF
 local nvim_lsp = require('lspconfig')
 
 vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float)
@@ -55,4 +50,3 @@ require('lspconfig')['solargraph'].setup{
     on_attach = on_attach,
     capabilities = capabilities
 }
-EOF

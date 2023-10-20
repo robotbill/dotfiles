@@ -1,5 +1,3 @@
-lua << EOF
-
 local vi_mode_utils = require('feline.providers.vi_mode')
 
 local components = {
@@ -93,4 +91,3 @@ require('feline').setup({
     fg = offwhite
   }
 })
-EOF
