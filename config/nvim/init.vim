@@ -49,6 +49,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 
+Plug 'tpope/vim-repeat'
+Plug 'ggandor/leap.nvim'
+
 if filereadable('~/.config/nvim/machine_specific/plugins.vim')
     source ~/.config/nvim/machine_specific/plugins.vim
 endif
@@ -325,16 +328,6 @@ let g:vimwiki_global_ext=0  " Don't turn all markdown files into vimwikis
 lua local sl = require("luasnip.extras.snippet_list")
 lua require("luasnip.loaders.from_snipmate").load()
 
-" test.vim
-let test#strategy = 'neovim'
-let g:test#neovim#start_normal = 1
-let test#ruby#use_spring_binstub = 1
-let g:test#javascript#jest#executable = 'yarn jest'
-nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tv :TestVisit<CR>
-
 " }}}
 " Skipped from old configuration ------------------------------------------ {{{
 
@@ -343,4 +336,6 @@ function! SynGroup()
   echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfun
 
-map <leader>s :call SynGroup()<CR>
+" map <leader>sg :call SynGroup()<CR>
+
+vmap <leader>fs !sqlformat --reindent --keywords upper --identifiers lower -<CR>
