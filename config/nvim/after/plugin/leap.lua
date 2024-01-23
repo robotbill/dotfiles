@@ -1,3 +1,3 @@
--- require('leap').add_default_mappings()
-vim.keymap.set({'n', 'x', 'o'}, '<leader>s', '<Plug>(leap-forward-to)')
-vim.keymap.set({'n', 'x', 'o'}, '<leader>S', '<Plug>(leap-backward-to)')
+vim.keymap.set({'n', 'x', 'o'}, '<leader>s', function ()
+  require('leap').leap { target_windows = { vim.api.nvim_get_current_win() } }
+end)
