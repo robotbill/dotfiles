@@ -22,3 +22,4 @@
 * jq
 * diff-so-fancy
 * [Finicky](https://github.com/johnste/finicky)
++ [sqlparse](https://github.com/andialbrecht/sqlparse) for formatting SQL

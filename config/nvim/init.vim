@@ -116,7 +116,6 @@ set shiftwidth=4                " Number of spaces to use for auto indent
 
 " }}}
 " Visual Changes ---------------------------------------------------------- {{{
-set background = "light"
 colorscheme jml
 let &colorcolumn=join(range(84,84),",")
 
@@ -201,13 +200,6 @@ augroup ruby
     autocmd BufNewFile,BufRead *.rb setlocal shiftwidth=2
 augroup end
 
-augroup ruby
-    autocmd!
-    autocmd BufNewFile,BufRead *.lu setlocal tabstop=2
-    autocmd BufNewFile,BufRead *.lu setlocal softtabstop=2
-    autocmd BufNewFile,BufRead *.lu setlocal shiftwidth=2
-augroup end
-
 augroup yaml
     autocmd!
     autocmd BufNewFile,BufRead *.yml,*.yaml setlocal tabstop=2
@@ -226,7 +218,6 @@ augroup end
 
 augroup javascript
     autocmd!
-    autocmd BufRead,BufNewFile *.js,*.ts,*.tsx setlocal filetype=javascript
     autocmd BufNewFile,BufRead *.js,*.ts,*.tsx setlocal tabstop=2
     autocmd BufNewFile,BufRead *.js,*.ts,*.tsx setlocal softtabstop=2
     autocmd BufNewFile,BufRead *.js,*.ts,*.tsx setlocal shiftwidth=2

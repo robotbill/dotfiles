@@ -45,7 +45,7 @@ local hi = function(group, opts)
       group,
       opts.fg or default,
       opts.bg or "NONE",
-      opts.gui or "NONE", 
+      opts.gui or "NONE",
       opts.sp or "NONE"
     )
   )
@@ -67,7 +67,7 @@ hi("Number", { fg = cyan })
 -- Float
 
 hi("Identifier", { fg = brblue })
--- Function
+hi("Function", { fg = brblue })
 
 hi("Statement", { fg = green, gui = "bold" })
 -- Conditional
@@ -149,16 +149,38 @@ hi("PmenuSel", { fg = offwhite, bg = brblack })
 hi("PmenuSbar", { bg = darkoffwhite })
 hi("PmenuThumb", { bg = brblack })
 
--- LSP
-hi("LspDiagnosticsSignError", { fg = brred })
-hi("LspDiagnosticsSignWarning", { fg = yellow })
-hi("LspDiagnosticsSignInformation", { fg = brgreen })
-hi("LspDiagnosticsSignHint", { fg = brblue })
+hi("NormalFloat", { bg = darkoffwhite })
 
-hi("LspDiagnosticsDefaultError", { fg = normal })
-hi("LspDiagnosticsDefaultWarning", { fg = normal })
-hi("LspDiagnosticsDefaultInformation", { fg = normal })
-hi("LspDiagnosticsDefaultHint", { fg = normal })
+hi("CursorColumn", { bg = brblack, fg = offwhite })
+hi("CursorLine", { bg = brblack, fg = offwhite })
+
+-- LSP
+hi("DiagnosticError", { fg = normal, bg = darkoffwhite })
+-- DiagnosticFloatingError xxx links to DiagnosticError
+-- DiagnosticVirtualTextError xxx links to DiagnosticError
+-- DiagnosticSignError xxx links to DiagnosticError
+
+hi("DiagnosticWarn", { fg = normal, bg = darkoffwhite })
+-- DiagnosticFloatingWarn xxx links to DiagnosticWarn
+-- DiagnosticVirtualTextWarn xxx links to DiagnosticWarn
+-- DiagnosticSignWarn xxx links to DiagnosticWarn
+
+hi("DiagnosticInfo", { fg = normal, bg = darkoffwhite })
+-- DiagnosticFloatingInfo xxx links to DiagnosticInfo
+-- DiagnosticVirtualTextInfo xxx links to DiagnosticInfo
+-- DiagnosticSignInfo xxx links to DiagnosticInfo
+
+hi("DiagnosticHint", { fg = normal, bg = darkoffwhite })
+-- DiagnosticFloatingHint xxx links to DiagnosticHint
+-- DiagnosticVirtualTextHint xxx links to DiagnosticHint
+-- DiagnosticSignHint xxx links to DiagnosticHint
+--
+hi("DiagnosticOk", { fg = normal, bg = darkoffwhite })
+-- DiagnosticFloatingOk xxx links to DiagnosticOk
+-- DiagnosticVirtualTextOk xxx links to DiagnosticOk
+-- DiagnosticSignOk xxx links to DiagnosticOk
+
+-- DiagnosticUnnecessary xxx links to Comment
 
 
 -- Git Fugitive
