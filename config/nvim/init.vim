@@ -1,64 +1,5 @@
 set encoding=utf-8
 
-" }}}
-" Plugins ----------------------------------------------------------------- {{{
-call plug#begin(stdpath('data') . '/plugged')
-
-Plug 'nvim-lua/plenary.nvim'
-
-" Visual
-"Plug 'bling/vim-airline'
-Plug 'feline-nvim/feline.nvim'
-
-" Notes
-Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
-
-" Snippets
-Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'}
-Plug 'saadparwaiz1/cmp_luasnip'
-
-" Git
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'lewis6991/gitsigns.nvim'
-
-" LSP
-Plug 'neovim/nvim-lspconfig'
-
-" Auto-Completion
-Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
-Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-cmdline', { 'branch': 'main' }
-
-" fzf
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
-" Language Support
-Plug 'dag/vim-fish'
-Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'tpope/vim-markdown'
-Plug 'fladson/vim-kitty'
-
-" Testing
-Plug 'vim-test/vim-test'
-
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-commentary'
-
-Plug 'tpope/vim-repeat'
-Plug 'ggandor/leap.nvim'
-
-if filereadable('~/.config/nvim/machine_specific/plugins.vim')
-    source ~/.config/nvim/machine_specific/plugins.vim
-endif
-
-call plug#end()
-
-" }}}
 " Basic Options ----------------------------------------------------------- {{{
 set noerrorbells
 set visualbell
@@ -287,6 +228,8 @@ augroup end
 
 " }}}
 " Plugin Configuration ---------------------------------------------------- {{{
+
+lua require('plugins')
 
 " Vimwiki
 let wiki = {}

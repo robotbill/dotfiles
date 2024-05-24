@@ -69,9 +69,9 @@ hi("Number", { fg = cyan })
 -- Boolean
 -- Float
 
-hi("@variable", { fg = brblue })
 hi("Identifier", { fg = brblue })
 hi("Function", { fg = brblue })
+hi("@variable", { fg = normal })
 
 hi("Statement", { fg = green, gui = "bold" })
 -- Conditional
