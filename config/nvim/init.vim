@@ -319,14 +319,4 @@ let g:vimwiki_global_ext=0  " Don't turn all markdown files into vimwikis
 lua local sl = require("luasnip.extras.snippet_list")
 lua require("luasnip.loaders.from_snipmate").load()
 
-" }}}
-" Skipped from old configuration ------------------------------------------ {{{
-
-function! SynGroup()
-  let l:s = synID(line('.'), col('.'), 1)
-  echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
-endfun
-
-" map <leader>sg :call SynGroup()<CR>
-
 vmap <leader>fs !sqlformat --reindent --keywords upper --identifiers lower -<CR>

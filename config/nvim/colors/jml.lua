@@ -3,6 +3,9 @@
 -- :he group-name
 -- :he highlight-groups
 -- :he cterm-colors
+--
+-- :Inspect to show highlight group under cursor
+-- :highlight to show all hightlight groups
 
 vim.cmd [[
   highlight clear
@@ -66,6 +69,7 @@ hi("Number", { fg = cyan })
 -- Boolean
 -- Float
 
+hi("@variable", { fg = brblue })
 hi("Identifier", { fg = brblue })
 hi("Function", { fg = brblue })
 
@@ -91,7 +95,7 @@ hi("Type", { fg = magenta, gui = "italic" })
 hi("Special", { fg = brcyan })
 -- SpecialChar
 -- Tag
--- Delimiter
+hi("Delimiter", { fg = brcyan })
 -- SpecialComment
 -- Debug
 
