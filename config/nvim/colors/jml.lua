@@ -158,6 +158,8 @@ hi("NormalFloat", { bg = darkoffwhite })
 hi("CursorColumn", { bg = brblack, fg = offwhite })
 hi("CursorLine", { bg = brblack, fg = offwhite })
 
+hi("QuickFixLine", { fg = green })
+
 -- LSP
 hi("DiagnosticError", { fg = normal, bg = darkoffwhite })
 -- DiagnosticFloatingError xxx links to DiagnosticError

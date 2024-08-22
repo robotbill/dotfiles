@@ -23,7 +23,26 @@ require("lazy").setup({
     },
 
     -- Notes
-    { "vimwiki/vimwiki", branch = "dev" },
+    {
+        "vimwiki/vimwiki",
+        branch = "dev",
+        init = function()
+            vim.g.vimwiki_list = {
+                {
+                    path = '~/vimwiki/',
+                    syntax = 'markdown',
+                    ext = '.md',
+                    path_html = '~/vimwiki/site_html/',
+                    custom_wiki2html = 'vimwiki_markdown',
+                    html_filename_parameterization = 1,
+                    template_ext = '.html',
+                }
+            }
+            vim.g.vimwiki_folding = ''
+            -- Don't turn all markdown files into vimwikis
+            vim.g.vimwiki_global_ext = 0
+        end,
+    },
 
     -- Snippets
     { "L3MON4D3/LuaSnip", version = "v2.*", build = "make install_jsregexp" },

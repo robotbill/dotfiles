@@ -40,11 +40,18 @@ end, { desc = "toggle diagnostic" })
 vim.keymap.set('n', '<leader>dt', '<cmd>DiagnosticToggle<cr>', { noremap = true })
 
 local lspconfig = require('lspconfig')
-local capabilities = vim.tbl_deep_extend("force",
-  vim.lsp.protocol.make_client_capabilities(),
-  require('cmp_nvim_lsp').default_capabilities()
+local capabilities = vim.tbl_deep_extend(
+    "force",
+    vim.lsp.protocol.make_client_capabilities(),
+    require('cmp_nvim_lsp').default_capabilities()
 )
 lspconfig.tsserver.setup({
+    on_init = function(client, initialization_result)
+        if client.server_capabilities then
+            -- This causes the syntax highlighting to change if enabled
+            client.server_capabilities.semanticTokensProvider = false
+        end
+    end,
     capabilities = capabilities,
     settings = {
         diagnostics = {
@@ -53,5 +60,5 @@ lspconfig.tsserver.setup({
         }
     }
 })
-lspconfig.eslint.setup({capabilities = capabilities})
+-- lspconfig.eslint.setup({capabilities = capabilities})
 lspconfig.solargraph.setup({capabilities = capabilities})

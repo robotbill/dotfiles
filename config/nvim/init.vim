@@ -231,33 +231,6 @@ augroup end
 
 lua require('plugins')
 
-" Vimwiki
-let wiki = {}
-let wiki.path = '~/vimwiki/'
-let wiki.syntax = 'markdown'
-let wiki.ext = '.md'
-let wiki.path_html = '~/vimwiki/site_html/'
-let wiki.custom_wiki2html = 'vimwiki_markdown'
-let wiki.html_filename_parameterization = 1
-let wiki.template_ext = '.html'
-let wiki.nested_syntaxes = {
-            \'c++': 'cpp',
-            \'haml': 'haml',
-            \'java': 'java',
-            \'javascript': 'javascript',
-            \'json': 'json',
-            \'mermaid': 'mermaid',
-            \'python': 'python',
-            \'ruby': 'ruby',
-            \'scala': 'scala',
-            \'sql': 'sql',
-            \'xml': 'xml'
-            \}
-let g:vimwiki_list = [wiki]
-"let g:vimwiki_folding='expr'
-let g:vimwiki_folding=''
-let g:vimwiki_global_ext=0  " Don't turn all markdown files into vimwikis
-
 " LuaSnip
 lua local sl = require("luasnip.extras.snippet_list")
 lua require("luasnip.loaders.from_snipmate").load()
