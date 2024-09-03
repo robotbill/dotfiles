@@ -1,6 +1,6 @@
 let test#strategy = 'neovim_sticky'
 let test#neovim_sticky#reopen_window = 1
-let g:test#javascript#jest#executable = 'yarn jest'
+let g:test#javascript#jest#executable = 'pnpm jest'
 
 function! s:findTestBuffer()
   let l:tag = '_test_vim_neovim_sticky'
