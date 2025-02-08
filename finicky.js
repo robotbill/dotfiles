@@ -3,7 +3,7 @@ module.exports = {
   handlers: [
     {
       match: finicky.matchHostnames(["meet.google.com"]),
-      browser: "Google Meet"
+      browser: "Google Chrome"
     },
     {
       match: [

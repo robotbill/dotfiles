@@ -1,6 +1,8 @@
 let test#strategy = 'neovim_sticky'
 let test#neovim_sticky#reopen_window = 1
 let g:test#javascript#jest#executable = 'pnpm jest'
+" Fix for readline issue with binding.pry
+let test#ruby#rspec#executable = 'RUBYOPT="-W0" rspec'
 
 function! s:findTestBuffer()
   let l:tag = '_test_vim_neovim_sticky'

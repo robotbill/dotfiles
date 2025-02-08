@@ -57,7 +57,6 @@ set shiftwidth=4                " Number of spaces to use for auto indent
 
 " }}}
 " Visual Changes ---------------------------------------------------------- {{{
-colorscheme jml
 let &colorcolumn=join(range(84,84),",")
 
 "let g:airline_powerline_fonts = 1
@@ -75,7 +74,7 @@ set statusline=[%n]\ %F\ %(\ %M%R%H)%)\ \@(%l\,%c%V)\ %P " Status line pattern (
 nmap Y y$
 
 " Yank visually selected block then comment out
-vmap ,yc ygv:normal i#<CR>
+vmap <leader>yc ygv:normal gcc<CR>
 
 " Open vim command-line window with ;
 map ; q:
@@ -230,6 +229,9 @@ augroup end
 " Plugin Configuration ---------------------------------------------------- {{{
 
 lua require('plugins')
+
+"colorscheme "catppuccin-frappe"
+colorscheme jml
 
 " LuaSnip
 lua local sl = require("luasnip.extras.snippet_list")

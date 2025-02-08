@@ -45,7 +45,7 @@ local capabilities = vim.tbl_deep_extend(
     vim.lsp.protocol.make_client_capabilities(),
     require('cmp_nvim_lsp').default_capabilities()
 )
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
     on_init = function(client, initialization_result)
         if client.server_capabilities then
             -- This causes the syntax highlighting to change if enabled
@@ -61,4 +61,5 @@ lspconfig.tsserver.setup({
     }
 })
 -- lspconfig.eslint.setup({capabilities = capabilities})
-lspconfig.solargraph.setup({capabilities = capabilities})
+-- lspconfig.solargraph.setup({capabilities = capabilities})
+lspconfig.ruby_lsp.setup({capabilities = capabilities})
