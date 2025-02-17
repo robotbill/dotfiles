@@ -15,7 +15,6 @@ require("lazy").setup({
     { "nvim-lua/plenary.nvim" },
 
     -- Visual
-    -- { 'freddiehaddad/feline.nvim', opts = {} },
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' }
@@ -84,6 +83,7 @@ require("lazy").setup({
     },
 
     { "scrooloose/nerdtree" },
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
     { "tpope/vim-repeat" },
     { "ggandor/leap.nvim" },

@@ -6,6 +6,7 @@
 --
 -- :Inspect to show highlight group under cursor
 -- :highlight to show all hightlight groups
+-- :so $VIMRUNTIME/syntax/hitest.vim to test colors
 
 vim.cmd [[
   highlight clear
@@ -103,7 +104,8 @@ hi("Underlined", { fg = brblue, gui = "underline" })
 
 hi("Ignore", { fg = brmagenta })
 
-hi("Error", { fg = offwhite, bg = red })
+hi("Error", { fg = offwhite, bg = brred })
+hi("NvimInternalError", { fg = brred, bg = brred })
 
 -- TODO: make this better
 -- FIXME: fix it
@@ -151,12 +153,16 @@ hi("SignColumn", { fg = normal })
 hi("Pmenu", { fg = red, bg = darkoffwhite })
 hi("PmenuSel", { fg = offwhite, bg = brblack })
 hi("PmenuSbar", { bg = darkoffwhite })
-hi("PmenuThumb", { bg = brblack })
+hi("PmenuThumb", { fg = darkoffwhite, bg = brblack })
 
 hi("NormalFloat", { bg = darkoffwhite })
 
 hi("CursorColumn", { bg = brblack, fg = offwhite })
 hi("CursorLine", { bg = brblack, fg = offwhite })
+hi("Cursor", { fg = brblack })
+hi("lCursor", { fg = brblack })
+hi("RedrawDebugNormal", { bg = brblack, fg = offwhite })
+hi("TabLineSel", { fg = brblack })
 
 hi("QuickFixLine", { fg = green })
 
@@ -192,12 +198,6 @@ hi("DiagnosticOk", { fg = normal, bg = darkoffwhite })
 -- Git Fugitive
 link("diffAdded", "diffAdd")
 link("diffRemoved", "diffDelete")
-
--- Feline
-hi("JMLFelineDefault", { fg = offwhite, bg = brblack })
-hi("JMLFelineFileInfo", { fg = yellow, bg = darkoffwhite, gui = "bold" })
-hi("JMLFelineInactive", { fg = yellow, bg = darkoffwhite, gui = "bold" })
-hi("JMLFelineGit", { fg = bryellow, bg = brblack, gui = "bold" })
 
 -- nvim-cmp
 hi("CmpItemKind", { fg = cyan, bg = darkoffwhite })
