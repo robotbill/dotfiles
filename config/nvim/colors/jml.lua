@@ -28,6 +28,7 @@ local brgreen = "#13C513"
 
 local yellow = "#b16404"
 local bryellow = "#eeb123"
+local hlyellow = "#ffd027"
 
 local blue = "#0451b1"
 local brblue = "#2360ee"
@@ -125,8 +126,9 @@ hi("Vertsplit", { fg = brblack })
 hi("Folded", { fg = brblack, bg = offwhite })
 hi("FoldColumn", { fg = brblack, bg = offwhite })
 
-hi("IncSearch", { fg = normal, bg = bryellow })
-hi("Search", { fg = normal, bg = bryellow })
+hi("IncSearch", { fg = magenta, bg = hlyellow })
+hi("CurSearch", { fg = magenta, bg = hlyellow })
+hi("Search", { fg = magenta, bg = bryellow })
 
 hi("LineNr", { fg = yellow, gui = "bold" })
 hi("MatchParen", { fg = normal, bg = brcyan })
