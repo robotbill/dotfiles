@@ -230,7 +230,20 @@ augroup end
 
 lua require('plugins')
 
-"colorscheme "catppuccin-frappe"
+lua << EOF
+vim.api.nvim_create_autocmd({'OptionSet', 'VimEnter'}, {
+  pattern = 'background',
+  callback = function(event)
+    if vim.o.background == "dark" then
+      vim.cmd 'colorscheme catppuccin-frappe'
+    else
+      vim.cmd 'colorscheme jml'
+    end
+  end
+})
+EOF
+" Explicitly set theme to jml to make lualine happy
+" until I figure out why it's unhappy without this.
 colorscheme jml
 
 " LuaSnip

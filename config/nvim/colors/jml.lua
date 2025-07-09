@@ -15,7 +15,6 @@ vim.cmd [[
 ]]
 
 vim.g.colors_name = "jml"
-vim.opt.background = "light"
 
 local black = "#000000"
 local brblack = "#4c422f"
