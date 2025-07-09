@@ -43,7 +43,8 @@ local lspconfig = require('lspconfig')
 local capabilities = vim.tbl_deep_extend(
     "force",
     vim.lsp.protocol.make_client_capabilities(),
-    require('cmp_nvim_lsp').default_capabilities()
+    require('cmp_nvim_lsp').default_capabilities(),
+    { semanticTokensProvider = nil }
 )
 lspconfig.ts_ls.setup({
     on_init = function(client, initialization_result)
@@ -60,6 +61,6 @@ lspconfig.ts_ls.setup({
         }
     }
 })
--- lspconfig.eslint.setup({capabilities = capabilities})
+lspconfig.eslint.setup({capabilities = capabilities})
 -- lspconfig.solargraph.setup({capabilities = capabilities})
 lspconfig.ruby_lsp.setup({capabilities = capabilities})

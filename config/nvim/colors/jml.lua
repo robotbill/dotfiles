@@ -71,6 +71,7 @@ hi("Number", { fg = cyan })
 -- Float
 
 hi("Identifier", { fg = brblue })
+
 hi("Function", { fg = brblue })
 hi("@variable", { fg = normal })
 
@@ -96,7 +97,7 @@ hi("Type", { fg = magenta, gui = "italic" })
 hi("Special", { fg = brcyan })
 -- SpecialChar
 -- Tag
-hi("Delimiter", { fg = brcyan })
+hi("Delimiter", { fg = red })
 -- SpecialComment
 -- Debug
 
@@ -205,3 +206,14 @@ hi("CmpItemKind", { fg = cyan, bg = darkoffwhite })
 
 -- NERDTree
 hi("NERDTreeCurrentNode", { fg = brblack, bg = darkoffwhite })
+
+-- Treesitter
+link("@type", "Identifier")
+link("@type.builtin", "Type")
+link("@constant.builtin", "Type")
+link("@constant", "Type")
+link("@variable.builtin", "Type")
+link("@variable.parameter", "PreProc")
+link("@constructor", "Function")
+link("@string.special.symbol", "Constant")
+hi("@function.call", { fg = black, bg = offwhite })

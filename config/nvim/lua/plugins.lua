@@ -87,4 +87,6 @@ require("lazy").setup({
 
     { "tpope/vim-repeat" },
     { "ggandor/leap.nvim" },
+
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 })

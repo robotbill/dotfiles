@@ -140,6 +140,13 @@ augroup ruby
     autocmd BufNewFile,BufRead *.rb setlocal shiftwidth=2
 augroup end
 
+augroup lua
+    autocmd!
+    autocmd BufNewFile,BufRead *.rb setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.rb setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.rb setlocal shiftwidth=2
+augroup end
+
 augroup yaml
     autocmd!
     autocmd BufNewFile,BufRead *.yml,*.yaml setlocal tabstop=2
