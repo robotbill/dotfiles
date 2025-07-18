@@ -1,22 +1,16 @@
-module.exports = {
+export default {
   defaultBrowser: "Firefox",
   handlers: [
     {
-      match: finicky.matchHostnames(["meet.google.com"]),
+      match: /meet.google.com/,
       browser: "Google Chrome"
     },
     {
-      match: [
-        "zoom.us/*",
-        finicky.matchDomains(/.*\zoom.us/),
-        /zoom.us\/j\//,
-      ],
+      match: /.*\.zoom\.us\/j\/.*/,
       browser: "us.zoom.xos"
     },
     {
-      match: [
-        finicky.matchDomains(/prod.liveshare.vsengsaas.visualstudio.com/)
-      ],
+      match: /prod.liveshare.vsengsaas.visualstudio.com/,
       browser: "Visual Studio Code"
     }
   ]
