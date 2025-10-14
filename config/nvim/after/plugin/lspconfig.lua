@@ -61,6 +61,15 @@ lspconfig.ts_ls.setup({
         }
     }
 })
-lspconfig.eslint.setup({capabilities = capabilities})
+-- lspconfig.eslint.setup({capabilities = capabilities})
 -- lspconfig.solargraph.setup({capabilities = capabilities})
-lspconfig.ruby_lsp.setup({capabilities = capabilities})
+lspconfig.ruby_lsp.setup({
+    capabilities = capabilities,
+    init_options = {
+        addonSettings = {
+            ["Ruby LSP Rails"] = {
+                enablePendingMigrationsPrompt = false,
+            },
+        },
+    },
+})
