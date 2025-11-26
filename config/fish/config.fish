@@ -16,3 +16,7 @@ set -gx PATH $PATH $HOME/bin $HOME/.jenv/bin
 if functions --query 'machine_specific'
     machine_specific
 end
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+set -x FZF_DEFAULT_COMMAND 'rg --files'

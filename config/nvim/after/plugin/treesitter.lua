@@ -12,6 +12,7 @@ require'nvim-treesitter.configs'.setup {
     "fish",
     "html",
     "javascript",
+    "typescript",
     "json",
     "python",
     "ruby",

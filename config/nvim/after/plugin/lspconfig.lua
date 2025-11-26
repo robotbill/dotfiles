@@ -1,5 +1,3 @@
-local nvim_lsp = require('lspconfig')
-
 vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next)
@@ -46,7 +44,7 @@ local capabilities = vim.tbl_deep_extend(
     require('cmp_nvim_lsp').default_capabilities(),
     { semanticTokensProvider = nil }
 )
-lspconfig.ts_ls.setup({
+vim.lsp.config('ts_ls', {
     on_init = function(client, initialization_result)
         if client.server_capabilities then
             -- This causes the syntax highlighting to change if enabled
@@ -61,9 +59,10 @@ lspconfig.ts_ls.setup({
         }
     }
 })
+vim.lsp.enable('ts_ls')
 -- lspconfig.eslint.setup({capabilities = capabilities})
 -- lspconfig.solargraph.setup({capabilities = capabilities})
-lspconfig.ruby_lsp.setup({
+vim.lsp.config('ruby_lsp', {
     capabilities = capabilities,
     init_options = {
         addonSettings = {
@@ -73,3 +72,4 @@ lspconfig.ruby_lsp.setup({
         },
     },
 })
+vim.lsp.enable('ruby_lsp')
