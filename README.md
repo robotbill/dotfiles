@@ -8,7 +8,8 @@
 * neovim
 * coreutils
 * [bat](https://github.com/sharkdp/bat)
-* silver searcher (maybe use ripgrep instead)
+* silver searcher
+* ripgrep
 * sl
 * git
 * iTerm
