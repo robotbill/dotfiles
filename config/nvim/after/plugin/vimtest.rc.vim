@@ -1,5 +1,6 @@
 let test#strategy = 'neovim_sticky'
 let test#neovim_sticky#reopen_window = 1
+let test#neovim#term_position = "botright 25"
 let g:test#javascript#jest#executable = 'pnpm jest'
 " Fix for readline issue with binding.pry
 let test#ruby#rspec#executable = 'RUBYOPT="-W0" bundle exec rspec'
@@ -27,14 +28,18 @@ endfun
 function! OpenTestWindow()
   let l:bufnr = s:findTestBuffer()
   if l:bufnr
+    " Copied from vim-test s:neovim_reopen_term
+    " https://github.com/vim-test/vim-test/blob/bc0e94059de40641d163516a83c63bc45c716acf/autoload/test/strategy.vim#L90-L101
     let l:current_window = win_getid()
     let term_position = get(g:, 'test#neovim#term_position', 'botright')
-    execute term_position . ' sbuffer ' . l:bufnr
-    let l:win = win_findbuf(l:bufnr)
-    call win_execute(l:win[0], 'normal G', 1)
+    execute term_position . ' new'
+    " we need to unload the no name buffer we just created
+    let l:current_buffer = bufnr("%")
+    execute 'buffer ' . l:bufnr . ' | bunload ' . l:current_buffer
 
     let l:new_window = win_getid()
     call win_gotoid(l:current_window)
+    return l:new_window
   endif
 endfun
 

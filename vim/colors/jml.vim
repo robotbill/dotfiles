@@ -25,7 +25,6 @@ hi IncSearch        ctermfg=black      ctermbg=178
 hi Search           ctermfg=black       ctermbg=178
 hi MoreMsg          ctermfg=darkgreen
 hi ModeMsg          ctermfg=red
-hi LineNr           ctermfg=yellow      ctermbg=darkgrey
 hi Question         ctermfg=darkgreen
 hi StatusLine       ctermfg=238         ctermbg=white
 hi StatusLineNC     ctermfg=252         ctermbg=240
@@ -61,6 +60,5 @@ hi Error            ctermfg=white       ctermbg=160
 hi Todo             ctermfg=white       ctermbg=darkgreen
 hi String           ctermfg=25
 hi Number           ctermfg=130
-"hi LineNr           ctermfg=darkyellow  ctermbg=white cterm=bold
 hi LineNr           ctermfg=darkyellow  ctermbg=255 cterm=bold
 hi ColorColumn      ctermbg=255

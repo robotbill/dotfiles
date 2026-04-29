@@ -85,8 +85,5 @@ require("lazy").setup({
     { "scrooloose/nerdtree" },
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
-    { "tpope/vim-repeat" },
-    { "ggandor/leap.nvim" },
-
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 })

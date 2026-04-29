@@ -37,7 +37,6 @@ end, { desc = "toggle diagnostic" })
 -- Default keybindings
 vim.keymap.set('n', '<leader>dt', '<cmd>DiagnosticToggle<cr>', { noremap = true })
 
-local lspconfig = require('lspconfig')
 local capabilities = vim.tbl_deep_extend(
     "force",
     vim.lsp.protocol.make_client_capabilities(),

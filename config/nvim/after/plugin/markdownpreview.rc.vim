@@ -59,7 +59,7 @@ let g:mkdp_browserfunc = ''
 " content_editable: if enable content editable for preview page, default: v:false
 " disable_filename: if disable filename header for preview page, default: 0
 let g:mkdp_preview_options = {
-    \ 'mkit': {},
+    \ 'mkit': { 'html': v:true },
     \ 'katex': {},
     \ 'uml': {},
     \ 'maid': {},
