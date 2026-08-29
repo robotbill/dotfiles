@@ -3,234 +3,364 @@ syntax enable
 set nocompatible
 set encoding=utf-8
 
-set shell=/bin/bash
+if empty(glob('~/.vim' . '/autoload/plug.vim'))
+  silent execute '!curl -fLo .vim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'vimwiki'
-Plug 'kien/ctrlp.vim'
-Plug 'ivalkeen/vim-ctrlp-tjump'
-Plug 'mileszs/ack.vim'
-Plug 'altercation/vim-colors-solarized'
-Plug 'jonathanfilip/vim-lucius'
-Plug 'bufexplorer.zip'
-Plug 'mbbill/undotree'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'vimwiki/vimwiki'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'derekwyatt/vim-scala'
-Plug 'elzr/vim-json'
-Plug 'Align'
-Plug 'GEverding/vim-hocon'
-Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'sukima/xmledit'
-Plug 'scrooloose/nerdcommenter'
-Plug 'shime/vim-livedown'
-Plug 'dag/vim-fish'
-Plug 'scrooloose/nerdtree'
-Plug 'benekastah/neomake'
-Plug 'bling/vim-airline'
+Plug 'tpope/vim-rhubarb'
 
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
+" Language Support
+Plug 'dag/vim-fish'
+Plug 'elzr/vim-json',
+Plug 'tpope/vim-markdown'
+Plug 'fladson/vim-kitty'
+
+" Testing
+Plug 'vim-test/vim-test'
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'tpope/vim-repeat'
+
+
+"Plug 'ivalkeen/vim-ctrlp-tjump'
+"Plug 'mileszs/ack.vim'
+"Plug 'altercation/vim-colors-solarized'
+"Plug 'jonathanfilip/vim-lucius'
+"Plug 'bufexplorer.zip'
+"Plug 'mbbill/undotree'
+"Plug 'elzr/vim-json'
+"Plug 'Align'
+"Plug 'GEverding/vim-hocon'
+"Plug 'ConradIrwin/vim-bracketed-paste'
+"Plug 'sukima/xmledit'
+"Plug 'scrooloose/nerdcommenter'
+"Plug 'shime/vim-livedown'
+"Plug 'dag/vim-fish'
+"Plug 'scrooloose/nerdtree'
+"Plug 'benekastah/neomake'
+"Plug 'bling/vim-airline'
+"
+"Plug 'xolox/vim-misc'
+"Plug 'xolox/vim-easytags'
 
 call plug#end()
 
+" Basic Options ----------------------------------------------------------- {{{
 set noerrorbells
-set visualbell
-set matchpairs+=<:>
-"set shortmess=a   " Use short messages
-set showmatch    " Show matching brackets when typing
-set smartcase
-set textwidth=0  " Don't automatically wrap lines
-set backspace=2  " Allow backspacing over everything in insert mode
-set history=50
-set cmdheight=2
-set scrolloff=1
-set title
-set ruler
-set showcmd
-set hidden
-set virtualedit=block
-set wrap
-set whichwrap=b,s,h,l,<,>,[,]       " No left/right key should have to stop at line breaks
+set novisualbell
+set showmatch                   " Show matching brackets when typing
+set matchpairs+=<:>             " Add pair matching for html
+set textwidth=0                 " Don't automatically wrap lines
+set backspace=indent,eol,start  " Allow back
+set hidden                      " Hides instead of closing buffers with unsaved changes
+set virtualedit=block           " Allow cursor to be where there is no actual char in block mode
+set wrap                        " Softwrap long lines
+set whichwrap=b,s,h,l,<,>,[,]   " Allow left/right movement keys to move past line breaks
+set list listchars=tab:>-,extends:>,precedes:<,trail:· " Show non printing characters sometimes
+set mouse=nvi                   " Allow mousing in normal, visual, and insert mode
+set laststatus=2                " Always show the status line
 
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set smarttab
-set autoindent
-set indentexpr=           " There was some wacky indenting stuff goin' on
-"autocmd FileType perl set smartindent
+set autoread                    " Automatically load file changes
 
-set list listchars=tab:>-,extends:>,precedes:<,trail:·
-set ignorecase
+set history=1000                " Remember N lines of command line history
+set wildmenu                    " Enable wildmenu for cli completion (default)
+set wildmode=list:longest       " Complete up to longest, list all matches
+
+let mapleader=","               " Set <leader> to ','
+
+set backupdir=~/.vim/backup     " Write backup files to a different directory
+set directory=~/.vim/backup     " Write swap files to a different directory
+
+set shell=/bin/bash             " Maybe this will make things faster??
+
+" }}}
+
+" Searching --------------------------------------------------------------- {{{
+set ignorecase                  " Ignore case when searching
+set smartcase                   " if all terms are lowercase
+set noincsearch                 " Disable incremental search (default)
 set hlsearch
-set complete=.,w,b,u,t
-set completeopt=menuone
 
-set number
-set statusline=[%n]\ %F\ %(\ %M%R%H)%)\ \@(%l\,%c%V)\ %P
-set laststatus=2
-set wildmenu
-set wildmode=list:longest
+" Don't move cursor when initially typing '*' in normal mode. (from emilyst)
+nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+vnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 
-"let mapleader=' '
-
-"Remove all autocommand
-"au!
-
-"mousing
-set mouse=nvi
-map <F1> <Esc>:set mouse=<CR>
-map <F2> <Esc>:set mouse=nvi<CR>
-
-if has('unix')
-    set bk bdir=.,~/.vimbak,/tmp,/var/tmp       " Backup settings
-    set     dir=.,~/.vimswp,/tmp,/var/tmp       " Swap file
-endif
-
-if has("syntax") && &t_Co > 2 || has("gui_running")
-  if has("syntax") && &t_Co == 256
-    set background=light
-    colorscheme jml
-    let &colorcolumn=join(range(100,100),",")
-  endif
-
-  augroup filetype
-    au! BufRead,BufNewFile *.t  setlocal filetype=perl
-    au! BufRead,BufNewFile *.html setlocal filetype=mason
-    au! BufRead,BufNewFile autohandler setlocal filetype=mason
-    au! BufRead,BufNewFile *.buf setlocal filetype=sql
-    au! BufRead,BufNewFile *.cf setlocal filetype=cf3
-    au! BufRead,BufNewFile Capfile setlocal filetype=ruby
-    au! BufRead,BufNewFile *.md setlocal filetype=markdown
-    au! BufRead,BufNewFile *.json setlocal foldmethod=syntax
-    au! BufRead,BufNewFile *.scala setlocal filetype=scala
-    au! BufNewFile,BufRead *.mako set filetype=mako
-  augroup END
-endif
-
-au BufRead,BufNewFile *.wiki setlocal spell
-au BufRead,BufNewFile *.md setlocal spell
-au BufNewFile,BufRead *txt,*.html,*.tex,README set spell
-
-"scala
-au BufRead,BufNewFile *.scala setlocal shiftwidth=2
-au BufRead,BufNewFile *.scala setlocal softtabstop=2
-au! BufWritePost *.scala Neomake
-" automatically reload scala files for scalariform
-"au FocusGained,BufEnter *.scala :silent! !
-"au BufRead,BufNewFile *.scala setlocal autoread
-
-"haskell
-au BufNewFile,BufRead *.hs,*.lhs setlocal tabstop=4
-au BufNewFile,BufRead *.hs,*.lhs setlocal softtabstop=4
-au BufNewFile,BufRead *.hs,*.lhs setlocal shiftwidth=4
-
-"html and ruby
-au BufNewFile,BufRead *.html,*.html.erb setlocal tabstop=2
-au BufNewFile,BufRead *.html,*.html.erb setlocal softtabstop=2
-au BufNewFile,BufRead *.html,*.html.erb setlocal shiftwidth=2
-
-"mako templating
-au BufNewFile,BufRead *.mako setlocal tabstop=2
-au BufNewFile,BufRead *.mako setlocal softtabstop=2
-au BufNewFile,BufRead *.mako setlocal shiftwidth=2
-
-"TeX LaTeX
-au BufNewFile,BufRead *.tex set tw=80
-
-"Google Go
-au BufNewFile,BufRead *.go set syntax=go noexpandtab si
-
-"Objective C
-autocmd BufNewFile,BufRead *.m vmap ,: :<C-U>AlignCtrl rlp0P0\|<CR>:'<,'>Align :<CR>
-
-"XML
-let g:xml_syntax_folding=1
-au FileType xml setlocal foldmethod=syntax
-
-"Latex-Suite
-let g:Tex_ViewRule_pdf = 'Preview'
-let g:tex_flavor='latex'
-
-nmap Y y$
-" Yank visually selected block then comment out
-vmap ,yc ygv:normal i#<CR>
-map ; q:
-
-" Awesome copy and pasting via Bracket
-vmap ,x :w !pbcopy<CR><CR>
-nmap ,p :r !pbpaste<CR><CR>
-
-" make * work in visual mode
+" make '*' work in visual mode
 vmap * y:let@/=@"<CR>n
 
-if executable('ag')
-" Use ag for Ctrlp for listing files, will respect .gitignore
-" Requires ag 'brew install the_silver_searcher'
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  "apparently ag is fast enough that we don't need caching
-  let g:ctrlp_use_caching = 0
+" }}}
+" Tabbing ----------------------------------------------------------------- {{{
+set expandtab                   " Turn tabs into spaces
+set tabstop=2                   " Tabs are 2 spaces
+set shiftwidth=2                " Number of spaces to use for auto indent
+set smarttab
+set autoindent
 
-  let g:ackprg='ag --nogroup --nocolor --column'
-else
-    let g:ackprg="/usr/local/bin/ack"
-endif
+" }}}
+" Visual Changes ---------------------------------------------------------- {{{
+set background=light
+colorscheme jml
+let &colorcolumn=join(range(84,84),",")
 
-" Ctrl-P show files and buffers
-let g:ctrlp_extension = ['tag', 'mixed']
-let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_mruf_relative = 1
+"let g:airline_powerline_fonts = 1
 
-" Integrate ack into vim via :Ack command
-" Thanks saikobee
-command! Wack exec 'Ack "' . expand('<cword>') . '"'
+set cmdheight=2                 " Use two lines for the command line
+set scrolloff=1                 " Keep at least 1 line above or below the cursor
+set title                       " Set the window title using the file, etc.
+set ruler                       " Show cursor position in status
+set number                      " Show line numbers
+set statusline=[%n]\ %F\ %(\ %M%R%H)%)\ \@(%l\,%c%V)\ %P " Status line pattern (TODO document this)
 
-" K will ack for the text under the cursor
-nnoremap K :Wack<CR>
-vnoremap K <Nop>
+" }}}
+" Shortcuts --------------------------------------------------------------- {{{
+" Y yanks to end of the line
+nmap Y y$
 
-" ctags go to definition with ,t
-"map ,t :CtrlPTag<CR><C-\>w
-nnoremap <c-]> :CtrlPtjump<cr>
-vnoremap <c-]> :CtrlPtjumpVisual<cr>
-let g:ctrlp_tjump_shortener = ['/home/.*/gems/', '.../']
-"If there is only one tag found, it is possible to open it without opening CtrlP window:
-let g:ctrlp_tjump_only_silent = 1
+" Yank visually selected block then comment out
+vmap <leader>yc ygv:normal gcc<CR>
 
-" easytags should use a project specific tags file
-"set tags=./tags;
-set tags=tags
-" not sure if this next line is doing anything...
-let g:easytags_cmd = '/usr/local/bin/ctags'
-let g:easytags_dynamic_files = 1
-"async doesn't seem to be working in neovim :(
-"let g:easytags_async = 1
-let g:easytags_always_enabled = 1
-let g:easytags_events = ['BufWritePost']
+" Open vim command-line window with ;
+map ; q:
 
-"write backup files to a different directory
-set backupdir=~/.vim/backup
-set directory=~/.vim/backup
+" Copy selection into system copy buffer
+vmap <leader>x "*y
 
-" window movement
+" Copy current file's relative path to system copy buffer
+nnoremap <silent> <leader>g% :let @+=expand('%')<CR>
+
+" Can move between windows using Alt and direction
 nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
+" }}}
 
-"airline
-let g:airline_powerline_fonts = 1
+" Filetypes --------------------------------------------------------------- {{{"
+filetype indent plugin on
 
-let g:vim_json_syntax_conceal = 0
+augroup text
+    autocmd!
+    autocmd BufRead,BufNewFile *.wiki setlocal spell
+    autocmd BufRead,BufNewFile *.md setlocal spell
+    autocmd BufNewFile,BufRead *txt,*.html,*.tex,README setlocal spell
+    "Markdown
+    autocmd BufRead,BufNewFile *.md,*.markdown setlocal filetype=markdown
+    autocmd BufNewFile,BufRead *.md,*.markdown setlocal textwidth=80
+    autocmd BufNewFile,BufRead *.md,*.markdown setlocal nowrap
+    "Vimwiki
+    autocmd BufNewFile,BufRead *.wiki setlocal textwidth=80
+    autocmd BufNewFile,BufRead *.wiki setlocal foldmethod=expr
+    "API blueprint
+    autocmd BufNewFile,BufRead *.apib setlocal textwidth=80
+augroup end
 
-:inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+augroup scala
+    autocmd!
+    autocmd BufRead,BufNewFile *.scala,*.sbt setlocal filetype=scala
+    autocmd BufRead,BufNewFile *.scala,*.sbt setlocal shiftwidth=2
+    autocmd BufRead,BufNewFile *.scala,*.sbt setlocal softtabstop=2
+    autocmd BufWritePost *.scala,*.sbt call atags#generate()
+augroup end
 
-function! Tab_Or_Complete()
-  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-    return "\<C-N>"
-  else
-    return "\<Tab>"
-  endif
-endfunction
+augroup python
+    autocmd!
+    autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr><C-o>
+augroup end
+
+augroup ruby
+    autocmd!
+    autocmd BufNewFile,BufRead *.rb setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.rb setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.rb setlocal shiftwidth=2
+augroup end
+
+augroup lua
+    autocmd!
+    autocmd BufNewFile,BufRead *.rb setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.rb setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.rb setlocal shiftwidth=2
+augroup end
+
+augroup yaml
+    autocmd!
+    autocmd BufNewFile,BufRead *.yml,*.yaml setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.yml,*.yaml setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.yml,*.yaml setlocal shiftwidth=2
+augroup end
+
+augroup java
+    autocmd!
+    autocmd BufWritePost *.java call atags#generate()
+    autocmd BufRead,BufNewFile *.java setlocal filetype=java
+    autocmd BufNewFile,BufRead *.java setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.java setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.java setlocal shiftwidth=2
+augroup end
+
+augroup javascript
+    autocmd!
+    autocmd BufNewFile,BufRead *.js,*.ts,*.tsx setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.js,*.ts,*.tsx setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.js,*.ts,*.tsx setlocal shiftwidth=2
+augroup end
+
+augroup haskell
+    autocmd!
+    autocmd BufNewFile,BufRead *.hs,*.lhs setlocal tabstop=4
+    autocmd BufNewFile,BufRead *.hs,*.lhs setlocal softtabstop=4
+    autocmd BufNewFile,BufRead *.hs,*.lhs setlocal shiftwidth=4
+augroup end
+
+augroup html
+    autocmd!
+    autocmd BufNewFile,BufRead *.html,*.html.erb setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.html,*.html.erb setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.html,*.html.erb setlocal shiftwidth=2
+augroup end
+
+augroup css
+    autocmd!
+    autocmd BufNewFile,BufRead *.css,*.scss setlocal tabstop=2
+    autocmd BufNewFile,BufRead *.css,*.scss setlocal softtabstop=2
+    autocmd BufNewFile,BufRead *.css,*.scss setlocal shiftwidth=2
+augroup end
+
+augroup tex
+    autocmd!
+    autocmd BufNewFile,BufRead *.tex set tw=80
+augroup end
+
+augroup googlego
+    autocmd!
+    autocmd BufNewFile,BufRead *.go set syntax=go noexpandtab si
+augroup end
+
+augroup objectivec
+    autocmd!
+    autocmd BufNewFile,BufRead *.m vmap ,: :<C-U>AlignCtrl rlp0P0\|<CR>:'<,'>Align :<CR>
+augroup end
+
+augroup clojure
+    autocmd!
+    autocmd BufRead,BufNewFile *.clj,*.clojure setlocal filetype=clojure
+    autocmd BufEnter *.clj RainbowParenthesesToggle
+    autocmd BufLeave *.clj RainbowParenthesesToggle
+    autocmd Syntax *.clj RainbowParenthesesLoadBraces
+    autocmd Syntax *.clj RainbowParenthesesLoadRound
+    autocmd Syntax *.clj RainbowParenthesesLoadSquare
+    autocmd Syntax *.clojure RainbowParenthesesLoadBraces
+    autocmd Syntax *.clojure RainbowParenthesesLoadRound
+    autocmd Syntax *.clojure RainbowParenthesesLoadSquare
+augroup end
+
+augroup terraform
+    autocmd!
+    autocmd BufRead,BufNewFile *.tf setlocal filetype=terraform
+    autocmd BufRead,BufNewFile *.tf setlocal shiftwidth=2
+    autocmd BufRead,BufNewFile *.tf setlocal softtabstop=2
+augroup end
+
+augroup jinja
+    au BufNewFile,BufRead *.njk set filetype=jinja
+    autocmd BufRead,BufNewFile *.njk setlocal shiftwidth=2
+    autocmd BufRead,BufNewFile *.njk setlocal softtabstop=2
+augroup end
+
+" }}}
+
+"set completeopt=menuone
+"
+""Remove all autocommand
+""au!
+"
+"if has('unix')
+"    set bk bdir=.,~/.vimbak,/tmp,/var/tmp       " Backup settings
+"    set     dir=.,~/.vimswp,/tmp,/var/tmp       " Swap file
+"endif
+
+"" ctags go to definition with ,t
+""map ,t :CtrlPTag<CR><C-\>w
+"nnoremap <c-]> :CtrlPtjump<cr>
+"vnoremap <c-]> :CtrlPtjumpVisual<cr>
+"let g:ctrlp_tjump_shortener = ['/home/.*/gems/', '.../']
+""If there is only one tag found, it is possible to open it without opening CtrlP window:
+"let g:ctrlp_tjump_only_silent = 1
+"
+"" easytags should use a project specific tags file
+""set tags=./tags;
+"set tags=tags
+"" not sure if this next line is doing anything...
+"let g:easytags_cmd = '/usr/local/bin/ctags'
+"let g:easytags_dynamic_files = 1
+""async doesn't seem to be working in neovim :(
+""let g:easytags_async = 1
+"let g:easytags_always_enabled = 1
+"let g:easytags_events = ['BufWritePost']
+"
+""write backup files to a different directory
+"set backupdir=~/.vim/backup
+"set directory=~/.vim/backup
+"
+"" window movement
+"nnoremap <A-h> <C-w>h
+"nnoremap <A-j> <C-w>j
+"nnoremap <A-k> <C-w>k
+"nnoremap <A-l> <C-w>l
+"
+""airline
+"let g:airline_powerline_fonts = 1
+"
+"let g:vim_json_syntax_conceal = 0
+"
+":inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+"
+"function! Tab_Or_Complete()
+"  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+"    return "\<C-N>"
+"  else
+"    return "\<Tab>"
+"  endif
+"endfunction
+
+
+" FZF ----------------------------------------------------------- {{{
+" Replace CtrlP
+nmap <C-p> :Files<CR>
+"map <leader>t :Tags<CR>
+" Replace Bufexplorer
+map <leader>be :Buffers<CR>
+nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+
+" Vim Wiki ------------------------------------------------------ {{{
+let g:vimwiki_list = [{ 'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown',
+                      \ 'ext': '.md',
+                      \ 'path_html': '~/vimwiki/site_html/',
+                      \ 'custom_wiki2html': 'vimwiki_markdown',
+                      \ 'html_filename_parameterization': 1,
+                      \ 'template_ext': '.html'}]
+let g:vimwiki_folding = ''
+" Don't turn all markdown files into vimwikis
+let g:vimwiki_global_ext = 0
+" }}}
+
+" Vim Test ------------------------------------------------------ {{{
+let test#strategy = 'basic'
+let g:test#javascript#jest#executable = 'pnpm jest'
+" Fix for readline issue with binding.pry
+let test#ruby#rspec#executable = 'RUBYOPT="-W0" rspec'
+
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tv :TestVisit<CR>
+nmap <silent> <leader>tc :call CloseTestWindow()<CR>
+nmap <silent> <leader>to :call OpenTestWindow()<CR>
