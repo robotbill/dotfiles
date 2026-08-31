@@ -16,40 +16,23 @@ Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-repeat'
+Plug 'mbbill/undotree'
+" Completion & Diagnostics
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " Language Support
 Plug 'dag/vim-fish'
 Plug 'elzr/vim-json',
 Plug 'tpope/vim-markdown'
 Plug 'fladson/vim-kitty'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() },
+                                     \ 'for': ['markdown', 'vim-plug']}
 
 " Testing
 Plug 'vim-test/vim-test'
-
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'tpope/vim-repeat'
-
-
-"Plug 'ivalkeen/vim-ctrlp-tjump'
-"Plug 'mileszs/ack.vim'
-"Plug 'altercation/vim-colors-solarized'
-"Plug 'jonathanfilip/vim-lucius'
-"Plug 'bufexplorer.zip'
-"Plug 'mbbill/undotree'
-"Plug 'elzr/vim-json'
-"Plug 'Align'
-"Plug 'GEverding/vim-hocon'
-"Plug 'ConradIrwin/vim-bracketed-paste'
-"Plug 'sukima/xmledit'
-"Plug 'scrooloose/nerdcommenter'
-"Plug 'shime/vim-livedown'
-"Plug 'dag/vim-fish'
-"Plug 'scrooloose/nerdtree'
-"Plug 'benekastah/neomake'
-"Plug 'bling/vim-airline'
-"
-"Plug 'xolox/vim-misc'
-"Plug 'xolox/vim-easytags'
 
 call plug#end()
 
@@ -362,5 +345,64 @@ nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
-nmap <silent> <leader>tc :call CloseTestWindow()<CR>
-nmap <silent> <leader>to :call OpenTestWindow()<CR>
+" }}}
+
+" LSP ------------------------------------------------------ {{{
+if executable('solargraph')
+    " gem install solargraph
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'solargraph',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+        \ 'initialization_options': {"diagnostics": "true"},
+        \ 'allowlist': ['ruby'],
+        \ })
+endif
+
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'allowlist': ['typescript', 'typescript.tsx', 'typescriptreact'],
+        \ })
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    " nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    " nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> <leader>D <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> <leader>p <plug>(lsp-previous-diagnostic)
+    nmap <buffer> <leader>n <plug>(lsp-next-diagnostic)
+    nmap <buffer> <C-k> <plug>(lsp-hover)
+    nmap <buffer> <leader>f <plug>(lsp-document-format)
+    " nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    " nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    " let g:lsp_format_sync_timeout = 1000
+    " autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+    let g:lsp_diagnostics_virtual_text_align = 'right'
+    let g:lsp_document_highlight_enabled = 0
+augroup END
+
+" }}}
+
+" Asyn Complete--------------------------------------------- {{{
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+" }}}
