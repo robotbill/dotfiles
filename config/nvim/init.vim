@@ -25,7 +25,7 @@ let mapleader=","               " Set <leader> to ','
 set backupdir=~/.vim/backup     " Write backup files to a different directory
 set directory=~/.vim/backup     " Write swap files to a different directory
 
-set shell=/bin/bash             " Maybe this will make things faster??
+"set shell=/bin/bash             " Maybe this will make things faster??
 
 " }}}
 " Python Provider Configuration ------------------------------------------- {{{
@@ -138,6 +138,7 @@ augroup ruby
     autocmd BufNewFile,BufRead *.rb setlocal tabstop=2
     autocmd BufNewFile,BufRead *.rb setlocal softtabstop=2
     autocmd BufNewFile,BufRead *.rb setlocal shiftwidth=2
+    autocmd BufRead,BufNewFile *_spec.rb setlocal spell
 augroup end
 
 augroup lua

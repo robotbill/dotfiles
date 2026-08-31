@@ -50,7 +50,6 @@ require("lazy").setup({
     -- Git
     { "tpope/vim-fugitive" },
     { "tpope/vim-rhubarb" },
-    { "lewis6991/gitsigns.nvim" },
 
     -- LSP
     { "neovim/nvim-lspconfig" },
@@ -83,7 +82,5 @@ require("lazy").setup({
     },
 
     { "scrooloose/nerdtree" },
-    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-
-    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+    { "nvim-treesitter/nvim-treesitter", lazy = false, build = ":TSUpdate" },
 })

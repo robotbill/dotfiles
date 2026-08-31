@@ -12,7 +12,7 @@ set -x BAT_THEME ansi
 alias weather 'curl wttr.in/ketchikan'
 alias icat 'kitty +kitten icat'
 
-set -gx PATH $PATH $HOME/bin $HOME/.jenv/bin
+set -gx PATH $PATH $HOME/bin $HOME/.jenv/bin $HOME/.local/bin
 
 if functions --query 'machine_specific'
     machine_specific
