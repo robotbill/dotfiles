@@ -39,6 +39,7 @@ call plug#end()
 " Basic Options ----------------------------------------------------------- {{{
 set noerrorbells
 set novisualbell
+set belloff=all
 set showmatch                   " Show matching brackets when typing
 set matchpairs+=<:>             " Add pair matching for html
 set textwidth=0                 " Don't automatically wrap lines
@@ -259,60 +260,15 @@ augroup end
 
 " }}}
 
-"set completeopt=menuone
-"
-""Remove all autocommand
-""au!
-"
 "if has('unix')
 "    set bk bdir=.,~/.vimbak,/tmp,/var/tmp       " Backup settings
 "    set     dir=.,~/.vimswp,/tmp,/var/tmp       " Swap file
 "endif
 
-"" ctags go to definition with ,t
-""map ,t :CtrlPTag<CR><C-\>w
-"nnoremap <c-]> :CtrlPtjump<cr>
-"vnoremap <c-]> :CtrlPtjumpVisual<cr>
-"let g:ctrlp_tjump_shortener = ['/home/.*/gems/', '.../']
-""If there is only one tag found, it is possible to open it without opening CtrlP window:
-"let g:ctrlp_tjump_only_silent = 1
-"
-"" easytags should use a project specific tags file
-""set tags=./tags;
-"set tags=tags
-"" not sure if this next line is doing anything...
-"let g:easytags_cmd = '/usr/local/bin/ctags'
-"let g:easytags_dynamic_files = 1
-""async doesn't seem to be working in neovim :(
-""let g:easytags_async = 1
-"let g:easytags_always_enabled = 1
-"let g:easytags_events = ['BufWritePost']
 "
 ""write backup files to a different directory
 "set backupdir=~/.vim/backup
 "set directory=~/.vim/backup
-"
-"" window movement
-"nnoremap <A-h> <C-w>h
-"nnoremap <A-j> <C-w>j
-"nnoremap <A-k> <C-w>k
-"nnoremap <A-l> <C-w>l
-"
-""airline
-"let g:airline_powerline_fonts = 1
-"
-"let g:vim_json_syntax_conceal = 0
-"
-":inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
-"
-"function! Tab_Or_Complete()
-"  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-"    return "\<C-N>"
-"  else
-"    return "\<Tab>"
-"  endif
-"endfunction
-
 
 " FZF ----------------------------------------------------------- {{{
 " Replace CtrlP
@@ -395,7 +351,7 @@ augroup lsp_install
     au!
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-    let g:lsp_diagnostics_virtual_text_align = 'right'
+    "let g:lsp_diagnostics_virtual_text_align = 'right'
     let g:lsp_document_highlight_enabled = 0
 augroup END
 
@@ -406,3 +362,6 @@ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 " }}}
+
+
+vmap <leader>fs !sqlformat --reindent --keywords upper --identifiers lower -<CR>

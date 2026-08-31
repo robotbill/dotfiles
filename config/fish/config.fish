@@ -6,7 +6,7 @@ set -x KITTY_CONFIG_DIRECTORY $HOME/.config/kitty
 
 # Use a light theme for FZF preview
 set -x COLORTERM truecolor
-set -x BAT_THEME ansi
+set -x BAT_THEME 'gruvbox-light'
 
 # alias vim nvim
 alias weather 'curl wttr.in/ketchikan'
