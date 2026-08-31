@@ -10,14 +10,14 @@
     coi = !git checkout $(git lb | fzf | xargs)
 [core]
     excludesfile = ~/.gitignore
-    editor = nvim
+    editor = vim
     pager = delta
 [interactive]
     diffFilter = delta --color-only
 [push]
     default = nothing
 [merge]
-    tool = nvimdiff
+    tool = vimdiff
 [mergetool]
     prompt = true
 [delta]
